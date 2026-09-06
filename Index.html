@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="John Kristian A. Ramos, RCE — Civil Engineer, Construction Estimator and Project Engineer specializing in quantity takeoffs, BOQs, cost estimation and project coordination.">
+<meta name="author" content="John Kristian A. Ramos">
+<title>John Kristian A. Ramos, RCE | Civil Engineer & Construction Estimator</title>
+<style>
+:root{
+  --ink:#10212b;
+  --muted:#61717a;
+  --line:#dbe3e6;
+  --paper:#f7f8f6;
+  --white:#fff;
+  --accent:#c58b45;
+  --dark:#0d1b22;
+  --max:1180px;
+  --shadow:0 18px 50px rgba(16,33,43,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto;display:block}
+.container{width:min(var(--max),92%);margin:auto}
+
+/* Navigation */
+nav{position:fixed;top:0;left:0;width:100%;z-index:20;background:rgba(247,248,246,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(219,227,230,.8)}
+.nav-inner{height:74px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:800;letter-spacing:.08em;font-size:1.1rem}
+.brand span{color:var(--accent)}
+.nav-links{display:flex;gap:28px;font-size:.82rem;font-weight:700;color:#42535c}
+.nav-links a:hover{color:var(--accent)}
+
+/* Mobile Menu Toggle */
+.menu-toggle{display:none;background:none;border:none;font-size:1.5rem;color:var(--ink);cursor:pointer;padding:8px}
+
+/* Hero Section */
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 60px;background:
+linear-gradient(90deg,rgba(13,27,34,.98) 0%,rgba(13,27,34,.93) 52%,rgba(13,27,34,.68) 100%),
+radial-gradient(circle at 80% 30%,#40535d,transparent 38%),#0d1b22;color:#fff}
+.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:50px;align-items:center}
+.kicker{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:#d8b17c;font-weight:800;margin-bottom:18px}
+h1{font-size:clamp(2.5rem,5.5vw,5rem);line-height:1.02;letter-spacing:-.04em;max-width:850px}
+.hero h1 span{color:#d8b17c}
+.hero-copy{font-size:clamp(1rem,1.8vw,1.12rem);color:#d8e0e3;max-width:700px;margin:24px 0}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;justify-content:center;align-items:center;padding:14px 21px;border:1px solid #fff;font-weight:800;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;text-align:center}
+.btn.primary{background:#fff;color:var(--dark)}
+.btn:hover{transform:translateY(-2px)}
+.hero-card{border:1px solid rgba(255,255,255,.18);padding:20px;background:rgba(255,255,255,.05);backdrop-filter:blur(8px)}
+.hero-photo-wrapper{width:100%;height:auto;overflow:hidden;margin-bottom:16px;border:1px solid rgba(255,255,255,.2);background:transparent}
+.hero-photo{width:100%;height:auto;display:block}
+.hero-card .number{font-size:2.2rem;font-weight:800;color:#d8b17c}
+.hero-card p{color:#cbd6da;font-size:.88rem}
+
+/* Sections General */
+section{padding:80px 0}
+.section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:45px}
+.eyebrow{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px}
+h2{font-size:clamp(1.8rem,3.5vw,3.2rem);line-height:1.1;letter-spacing:-.03em}
+.section-intro{max-width:500px;color:var(--muted);font-size:.95rem}
+
+/* Grids */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.about-text{font-size:1rem;color:#44545c}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:30px}
+.stat{background:var(--paper);padding:18px 14px;text-align:center}
+.stat strong{display:block;font-size:1.6rem}
+.stat small{color:var(--muted);font-size:.78rem}
+
+.services{background:#fff}
+.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.service{border:1px solid var(--line);padding:24px;min-height:200px;transition:.2s}
+.service:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
+.service-num{font-size:.75rem;color:var(--accent);font-weight:800}
+.service h3{font-size:1.25rem;margin:25px 0 10px}
+.service p{color:var(--muted);font-size:.9rem}
+
+.projects{background:var(--paper)}
+.project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.project{background:#fff;border:1px solid var(--line);overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
+.project:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.project-visual{position:relative;overflow:hidden;background:#243741}
+.project-visual-bg{width:100%;height:auto;display:block;transition:transform .3s ease;cursor:zoom-in}
+.project:hover .project-visual-bg{transform:scale(1.02)}
+
+/* Slider & Lightbox */
+.project-slider{position:relative;width:100%;overflow:hidden;background:#1a2b34}
+.slider-track{position:relative;width:100%}
+.slide{width:100%;height:auto;display:none;cursor:zoom-in}
+.slide.active{display:block}
+.slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(13,27,34,0.7);color:#fff;border:none;font-size:1.2rem;padding:12px 16px;cursor:pointer;z-index:5}
+.slider-btn.prev{left:5px}
+.slider-btn.next{right:5px}
+.slider-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer}
+.dot.active{background:var(--accent);width:18px;border-radius:4px}
+
+.lightbox-modal{display:none;position:fixed;z-index:1000;top:0;left:0;width:100%;height:100%;background-color:rgba(13,27,34,0.95);backdrop-filter:blur(8px);justify-content:center;align-items:center;flex-direction:column;padding:15px}
+.lightbox-modal.active{display:flex}
+.lightbox-content{max-width:95%;max-height:80vh;object-fit:contain;border:1px solid rgba(255,255,255,0.2)}
+.lightbox-close{position:absolute;top:15px;right:20px;color:#fff;font-size:35px;font-weight:bold;cursor:pointer;z-index:1001;padding:10px}
+.lightbox-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);font-size:1.5rem;padding:14px;cursor:pointer;user-select:none;z-index:1001}
+.lightbox-btn.prev{left:10px}
+.lightbox-btn.next{right:10px}
+
+.project-body{padding:20px}
+.project-meta{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:800}
+.project-body p{color:var(--muted);font-size:.88rem;margin:10px 0 16px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.65rem;border:1px solid var(--line);padding:4px 7px;color:#506069}
+
+.expertise{background:#fff}
+.expertise-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.expertise-box{border-top:2px solid var(--ink);padding:20px 0}
+.expertise-box h3{margin-bottom:10px;font-size:1.15rem}
+.expertise-box p{color:var(--muted);font-size:.9rem}
+
+.timeline{border-left:1px solid var(--line);margin-left:8px}
+.job{padding:0 0 35px 25px;position:relative}
+.job:before{content:"";width:11px;height:11px;border:2px solid var(--accent);background:var(--paper);position:absolute;left:-6px;top:5px;border-radius:50%}
+.job-year{font-size:.72rem;color:var(--accent);font-weight:800;letter-spacing:.1em}
+.job h3{margin:4px 0 2px;font-size:1.15rem}
+.job-company{color:#52626a;font-weight:700;font-size:.88rem}
+.job p{color:var(--muted);font-size:.88rem;margin-top:8px}
+
+.contact{background:var(--dark);color:#fff}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.contact-copy{color:#cbd6da;margin-top:16px;font-size:.95rem}
+.contact-list{display:grid;gap:16px}
+.contact-item{border-bottom:1px solid rgba(255,255,255,.16);padding-bottom:14px}
+.contact-item small{display:block;color:#9eafb6;text-transform:uppercase;letter-spacing:.12em;font-size:.65rem;margin-bottom:4px}
+.contact-item a:hover{color:#d8b17c}
+
+footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
+.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+
+/* RESPONSIVE BREAKPOINTS */
+@media(max-width:992px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-card{max-width:450px}
+  .service-grid{grid-template-columns:repeat(2,1fr)}
+  .about-grid, .expertise-grid, .contact-grid{grid-template-columns:1fr;gap:35px}
+  .section-head{flex-direction:column;align-items:flex-start}
+}
+
+@media(max-width:768px){
+  .menu-toggle{display:block}
+  .nav-links{display:none;position:absolute;top:74px;left:0;width:100%;background:var(--paper);flex-direction:column;gap:0;border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+  .nav-links.active{display:flex}
+  .nav-links a{padding:16px 24px;border-top:1px solid var(--line)}
+  .project-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:480px){
+  section{padding:55px 0}
+  .hero{padding-top:100px}
+  .actions{flex-direction:column;width:100%}
+  .actions .btn{width:100%}
+  .stats{grid-template-columns:1fr}
+  .service-grid{grid-template-columns:1fr}
+  .lightbox-btn{padding:8px 12px;font-size:1.2rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-inner">
+    <a class="brand" href="#home">KR<span>.</span></a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" onclick="closeMenu()">About</a>
+      <a href="#services" onclick="closeMenu()">Expertise</a>
+      <a href="#projects" onclick="closeMenu()">Projects</a>
+      <a href="#experience" onclick="closeMenu()">Experience</a>
+      <a href="#contact" onclick="closeMenu()">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <div class="kicker">Registered Civil Engineer · Davao City · Philippines</div>
+      <h1>John Kristian <span>Ramos</span>, RCE</h1>
+      <p class="hero-copy">Civil Engineer, Construction Estimator and Project Engineer specializing in quantity takeoffs, BOQs, cost estimation, project coordination and construction documentation.</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">View My Work</a>
+        <a class="btn" href="#contact">Let's Work Together</a>
+      </div>
+    </div>
+    <aside class="hero-card">
+      <div class="hero-photo-wrapper">
+        <img src="images/headshot.webp" alt="John Kristian A. Ramos, RCE" class="hero-photo" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
+      </div>
+      <div class="number">3+</div>
+      <p>Years of construction project experience across building, infrastructure, steel fabrication and remote estimating.</p>
+      <br>
+      <div class="number">₱350M</div>
+      <p>Project exposure on a major mid-rise building development.</p>
+    </aside>
+  </div>
+</header>
+
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="eyebrow">01 — About</div><h2>Engineering with a commercial mindset.</h2></div>
+      <p class="section-intro">A construction professional combining site execution, quantity surveying, estimating and project coordination.</p>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p class="about-text">I am a Registered Civil Engineer with over three years of construction experience in project engineering, quantity surveying, cost estimation, documentation management and remote client support.</p>
+        <p class="about-text" style="margin-top:16px">My experience spans building and infrastructure projects, steel fabrication and erection, interior fit-out, and bespoke joinery estimating for an international client. I work comfortably with contractors, suppliers, consultants and multidisciplinary project teams.</p>
+      </div>
+      <div>
+        <p class="about-text">My approach is detail-oriented and practical: understand the drawings, establish reliable quantities, organize the information clearly, monitor costs and communicate what the project team needs to know.</p>
+        <div class="stats">
+          <div class="stat"><strong>2023</strong><small>RCE registration</small></div>
+          <div class="stat"><strong>UK</strong><small>Remote estimating</small></div>
+          <div class="stat"><strong>4+</strong><small>Construction roles</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="eyebrow">02 — Expertise</div><h2>What I do.</h2></div>
+      <p class="section-intro">Technical and commercial capabilities developed through hands-on construction and remote estimating work.</p>
+    </div>
+    <div class="service-grid">
+      <article class="service"><div class="service-num">01</div><h3>Quantity Takeoffs</h3><p>Measurement and extraction of construction quantities from drawings, specifications and project information.</p></article>
+      <article class="service"><div class="service-num">02</div><h3>BOQ Preparation</h3><p>Structured Bills of Quantities and material schedules supporting procurement, pricing and project control.</p></article>
+      <article class="service"><div class="service-num">03</div><h3>Cost Estimation</h3><p>Project costing, quotations, pricing calculations, budget monitoring and cost tracking.</p></article>
+      <article class="service"><div class="service-num">04</div><h3>Project Coordination</h3><p>Coordination between contractors, suppliers, consultants and project stakeholders to keep work moving.</p></article>
+      <article class="service"><div class="service-num">05</div><h3>Construction Documentation</h3><p>RFIs, NCRs, method statements, ITPs, progress reports, document control and construction records.</p></article>
+      <article class="service"><div class="service-num">06</div><h3>Site & Cost Control</h3><p>Progress monitoring, quantity verification, budget tracking and support for procurement and billing.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="eyebrow">03 — Selected Work</div><h2>Project experience.</h2></div>
+      <p class="section-intro">Selected projects from building, infrastructure and construction works. Project figures and descriptions are based on the supplied portfolio information.</p>
+    </div>
+    <div class="project-grid">
+      
+      <article class="project">
+        <div class="project-slider" id="piling-slider">
+          <div class="slider-track">
+            <img src="images/project-piling-1.webp" alt="Piling Works 1" class="slide active" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img src="images/project-piling-2.webp" alt="Piling Works 2" class="slide" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img src="images/project-piling-3.webp" alt="Piling Works 3" class="slide" loading="lazy" decoding="async" onerror="this.style.display='none'">
+          </div>
+          <button class="slider-btn prev" onclick="moveSlide('piling-slider', -1)" aria-label="Previous image">&#10094;</button>
+          <button class="slider-btn next" onclick="moveSlide('piling-slider', 1)" aria-label="Next image">&#10095;</button>
+          <div class="slider-dots">
+            <span class="dot active" onclick="setSlide('piling-slider', 0)"></span>
+            <span class="dot" onclick="setSlide('piling-slider', 1)"></span>
+            <span class="dot" onclick="setSlide('piling-slider', 2)"></span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="project-meta">₱50M · Davao City</div>
+          <h3 style="font-size:1.2rem; margin:6px 0 8px;">Maldives Oasis — Building D: Pile Installation & Excavation</h3>
+          <p>Assisted and supervised pile installation and excavation, including takeoffs for prestressed concrete piles, excavation and backfill. Coordinated with piling subcontractors, surveyors and safety officers.</p>
+          <div class="tags"><span class="tag">Takeoffs</span><span class="tag">BOQ</span><span class="tag">Cost Control</span><span class="tag">Site Supervision</span></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-visual">
+          <img src="images/project-foundation.webp" alt="Maldives Oasis Foundation System" class="project-visual-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        </div>
+        <div class="project-body">
+          <div class="project-meta">₱20M · 1,300m³ Mat Foundation</div>
+          <h3 style="font-size:1.2rem; margin:6px 0 8px;">Maldives Oasis — Building D: Foundation System</h3>
+          <p>Supported reinforced-concrete mat foundation construction, prepared reinforcement, formwork and concrete material schedules, and tracked actual expenditure against the project allocation.</p>
+          <div class="tags"><span class="tag">Material Takeoff</span><span class="tag">Cost Model</span><span class="tag">Progress Billing</span></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-visual">
+          <img src="images/project-guardhouse.webp" alt="Gate and Guardhouse Construction" class="project-visual-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        </div>
+        <div class="project-body">
+          <div class="project-meta">₱3.5M · Davao City</div>
+          <h3 style="font-size:1.2rem; margin:6px 0 8px;">Maldives Oasis — Gate & Guardhouse: Construction & Fit-Out</h3>
+          <p>Oversaw structural construction through finishes and MEP installations while compiling BOQs and supporting procurement. Validated subcontractor invoices against completed work.</p>
+          <div class="tags"><span class="tag">BOQ</span><span class="tag">Fit-Out</span><span class="tag">Procurement</span><span class="tag">Cost Control</span></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-visual">
+          <img src="images/project-fitout.webp" alt="Building A Fit Out Works" class="project-visual-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
+        </div>
+        <div class="project-body">
+          <div class="project-meta">₱4.5M + ₱5.5M · Davao City</div>
+          <h3 style="font-size:1.2rem; margin:6px 0 8px;">Maldives Oasis — Building A: Studio & 2BR Fit-Out</h3>
+          <p>Supervised interior finishing and coordinated multiple trade contractors. Prepared finishes takeoffs and BOQs covering tiles, painting, ceilings, waterproofing, fixtures and MEP-related works.</p>
+          <div class="tags"><span class="tag">Finishes Takeoff</span><span class="tag">BOQ</span><span class="tag">Variations</span><span class="tag">Cost Tracking</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="expertise">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="eyebrow">04 — Technical Profile</div><h2>Built for detail.<br>Focused on delivery.</h2></div>
+    </div>
+    <div class="expertise-grid">
+      <div class="expertise-box"><h3>Quantity Surveying & Cost Control</h3><p>BOQ preparation · Material takeoffs · Cost planning · Budget forecasting · Pricing analysis · Variation orders · Final account reconciliation</p></div>
+      <div class="expertise-box"><h3>Project Management & Coordination</h3><p>Project planning · WBS/Gantt charts · Site supervision · Subcontractor and supplier coordination · Progress tracking</p></div>
+      <div class="expertise-box"><h3>Technical Design & Drafting</h3><p>AutoCAD · SketchUp · Drawing interpretation · Design review · Technical coordination and conflict resolution</p></div>
+      <div class="expertise-box"><h3>Quality & Documentation</h3><p>QA/QC compliance · RFIs · NCRs · Method Statements · ITPs · As-built documentation · Document control</p></div>
+      <div class="expertise-box"><h3>Software & Tools</h3><p>Microsoft Excel · Microsoft Office · Google Workspace · PlanSwift · AutoCAD · SketchUp · MS Project · PDF markup tools · Microsoft Teams · Zoom</p></div>
+      <div class="expertise-box"><h3>Professional Credentials</h3><p>BS Civil Engineering — Mapúa Malayan Colleges Mindanao · Registered Civil Engineer (PRC) · TESDA NCII Electrical Installation & Maintenance · TESDA NCII PV Installation & Maintenance</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="eyebrow">05 — Experience</div><h2>Career timeline.</h2></div>
+      <p class="section-intro">Experience across estimating, project engineering, construction supervision and technical coordination.</p>
+    </div>
+    <div class="timeline">
+      <article class="job"><div class="job-year">2026 — PRESENT</div><h3>Remote Cost Estimator — Bespoke Joinery</h3><div class="job-company">Salisbury Joinery · Remote</div><p>Prepare cost estimates and quotations for bespoke windows and doors; review drawings and specifications, perform quantity takeoffs and pricing calculations, coordinate pricing updates, and maintain estimate and quotation records.</p></article>
+      <article class="job"><div class="job-year">2025 — 2026</div><h3>Project Engineer — Steel Fabrication & Erection</h3><div class="job-company">Golde Beta Fabrication Solutions Inc. · Davao City</div><p>Coordinated activities between a Japanese General Contractor and local fabrication team for a ₱60M DPWH Toll Plaza project. Prepared RFIs, NCRs, Method Statements, ITPs and progress documentation.</p></article>
+      <article class="job"><div class="job-year">2023 — 2025</div><h3>Project Civil Engineer — Buildings & Infrastructure</h3><div class="job-company">Dreambuilders Pro, Inc. · Davao City</div><p>Supported execution of a ₱350M mid-rise building project and infrastructure developments. Prepared BOQs, cost estimates, material takeoffs and work schedules while coordinating with contractors and consultants.</p></article>
+      <article class="job"><div class="job-year">2022 — 2023</div><h3>Cadet Engineer — Civil / Structural / Architectural Works</h3><div class="job-company">OPAJ Construction & Supply Corporation · Davao City</div><p>Assisted with quantity takeoffs, cost estimates, project schedules, construction documentation and coordination of technical requirements.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="container contact-grid">
+    <div>
+      <div class="eyebrow">06 — Contact</div>
+      <h2>Let's discuss your next project.</h2>
+      <p class="contact-copy">For construction estimating, quantity takeoffs, BOQ preparation, project coordination or related technical work, feel free to get in touch.</p>
+      <div style="margin-top:24px"><a class="btn" href="mailto:Jkristianramos@gmail.com">Send an Email</a></div>
+    </div>
+    <div class="contact-list">
+      <div class="contact-item"><small>Email</small><a href="mailto:Jkristianramos@gmail.com">Jkristianramos@gmail.com</a></div>
+      <div class="contact-item"><small>Phone</small><a href="tel:+639460758830">+63 946 075 8830</a></div>
+      <div class="contact-item"><small>LinkedIn</small><a href="https://www.linkedin.com/in/jkristianramos" target="_blank" rel="noopener">linkedin.com/in/jkristianramos</a></div>
+      <div class="contact-item"><small>Location</small><span>Davao City, Philippines</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <span>© 2026 John Kristian A. Ramos, RCE</span>
+    <span>Civil Engineer · Construction Estimator · Project Engineer</span>
+  </div>
+</footer>
+
+<div id="lightbox" class="lightbox-modal">
+  <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" class="lightbox-content" src="" alt="Enlarged view">
+  <button class="lightbox-btn prev" onclick="changeLightboxSlide(-1)" aria-label="Previous image">&#10094;</button>
+  <button class="lightbox-btn next" onclick="changeLightboxSlide(1)" aria-label="Next image">&#10095;</button>
+</div>
+
+<script>
+// Toggle Mobile Navigation Menu
+function toggleMenu() {
+  const navLinks = document.getElementById('navLinks');
+  navLinks.classList.toggle('active');
+}
+
+function closeMenu() {
+  const navLinks = document.getElementById('navLinks');
+  navLinks.classList.remove('active');
+}
+
+// Inline card slider navigation
+function moveSlide(sliderId, direction) {
+  const slider = document.getElementById(sliderId);
+  const slides = slider.querySelectorAll('.slide');
+  const dots = slider.querySelectorAll('.dot');
+  let activeIndex = Array.from(slides).findIndex(slide => slide.classList.contains('active'));
+
+  slides[activeIndex].classList.remove('active');
+  if (dots.length) dots[activeIndex].classList.remove('active');
+
+  activeIndex = (activeIndex + direction + slides.length) % slides.length;
+
+  slides[activeIndex].classList.add('active');
+  if (dots.length) dots[activeIndex].classList.add('active');
+}
+
+function setSlide(sliderId, index) {
+  const slider = document.getElementById(sliderId);
+  const slides = slider.querySelectorAll('.slide');
+  const dots = slider.querySelectorAll('.dot');
+
+  slides.forEach(slide => slide.classList.remove('active'));
+  dots.forEach(dot => dot.classList.remove('active'));
+
+  slides[index].classList.add('active');
+  dots[index].classList.add('active');
+}
+
+// Lightbox Modal Logic
+let currentGallery = [];
+let currentGalleryIndex = 0;
+
+function openLightbox(imgElement) {
+  const parentCard = imgElement.closest('.project');
+  const images = parentCard.querySelectorAll('img');
+  
+  currentGallery = Array.from(images).map(img => img.src);
+  currentGalleryIndex = currentGallery.indexOf(imgElement.src);
+
+  if (currentGalleryIndex === -1) currentGalleryIndex = 0;
+
+  document.getElementById('lightbox-img').src = currentGallery[currentGalleryIndex];
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+function changeLightboxSlide(direction) {
+  if (currentGallery.length <= 1) return;
+  currentGalleryIndex = (currentGalleryIndex + direction + currentGallery.length) % currentGallery.length;
+  document.getElementById('lightbox-img').src = currentGallery[currentGalleryIndex];
+}
+
+// Bind click event to all project images dynamically
+document.addEventListener('DOMContentLoaded', () => {
+  const projectImages = document.querySelectorAll('.project img');
+  projectImages.forEach(img => {
+    img.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightbox(img);
+    });
+  });
+});
+
+// Close lightbox on Escape key & cycle with Arrow keys
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') changeLightboxSlide(-1);
+  if (e.key === 'ArrowRight') changeLightboxSlide(1);
+});
+</script>
+</body>
+</html>
