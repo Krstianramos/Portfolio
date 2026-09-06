@@ -20,132 +20,148 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65}
+body{font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--paper);line-height:1.65;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
+img{max-width:100%;height:auto;display:block}
 .container{width:min(var(--max),92%);margin:auto}
+
+/* Navigation */
 nav{position:fixed;top:0;left:0;width:100%;z-index:20;background:rgba(247,248,246,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(219,227,230,.8)}
 .nav-inner{height:74px;display:flex;align-items:center;justify-content:space-between}
-.brand{font-weight:800;letter-spacing:.08em;font-size:.82rem}
+.brand{font-weight:800;letter-spacing:.08em;font-size:1.1rem}
 .brand span{color:var(--accent)}
 .nav-links{display:flex;gap:28px;font-size:.82rem;font-weight:700;color:#42535c}
 .nav-links a:hover{color:var(--accent)}
-.hero{min-height:100vh;display:flex;align-items:center;padding:130px 0 80px;background:
+
+/* Mobile Menu Toggle */
+.menu-toggle{display:none;background:none;border:none;font-size:1.5rem;color:var(--ink);cursor:pointer;padding:8px}
+
+/* Hero Section */
+.hero{min-height:100vh;display:flex;align-items:center;padding:120px 0 60px;background:
 linear-gradient(90deg,rgba(13,27,34,.98) 0%,rgba(13,27,34,.93) 52%,rgba(13,27,34,.68) 100%),
 radial-gradient(circle at 80% 30%,#40535d,transparent 38%),#0d1b22;color:#fff}
-.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:70px;align-items:center}
-.kicker{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:#d8b17c;font-weight:800;margin-bottom:22px}
-h1{font-size:clamp(3rem,7vw,6.4rem);line-height:.95;letter-spacing:-.055em;max-width:850px}
+.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:50px;align-items:center}
+.kicker{font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:#d8b17c;font-weight:800;margin-bottom:18px}
+h1{font-size:clamp(2.5rem,5.5vw,5rem);line-height:1.02;letter-spacing:-.04em;max-width:850px}
 .hero h1 span{color:#d8b17c}
-.hero-copy{font-size:1.12rem;color:#d8e0e3;max-width:700px;margin:30px 0}
-.actions{display:flex;gap:14px;flex-wrap:wrap}
-.btn{display:inline-flex;padding:14px 21px;border:1px solid #fff;font-weight:800;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase}
+.hero-copy{font-size:clamp(1rem,1.8vw,1.12rem);color:#d8e0e3;max-width:700px;margin:24px 0}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;justify-content:center;align-items:center;padding:14px 21px;border:1px solid #fff;font-weight:800;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;text-align:center}
 .btn.primary{background:#fff;color:var(--dark)}
 .btn:hover{transform:translateY(-2px)}
-.hero-card{border:1px solid rgba(255,255,255,.18);padding:24px;background:rgba(255,255,255,.05);backdrop-filter:blur(8px)}
-
-/* Dynamic-ratio Hero Photo (No cropping) */
-.hero-photo-wrapper{width:100%;height:auto;overflow:hidden;margin-bottom:20px;border:1px solid rgba(255,255,255,.2);background:transparent}
+.hero-card{border:1px solid rgba(255,255,255,.18);padding:20px;background:rgba(255,255,255,.05);backdrop-filter:blur(8px)}
+.hero-photo-wrapper{width:100%;height:auto;overflow:hidden;margin-bottom:16px;border:1px solid rgba(255,255,255,.2);background:transparent}
 .hero-photo{width:100%;height:auto;display:block}
-
-.hero-card .number{font-size:2.4rem;font-weight:800;color:#d8b17c}
+.hero-card .number{font-size:2.2rem;font-weight:800;color:#d8b17c}
 .hero-card p{color:#cbd6da;font-size:.88rem}
-section{padding:105px 0}
-.section-head{display:flex;justify-content:space-between;gap:40px;align-items:end;margin-bottom:55px}
-.eyebrow{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:12px}
-h2{font-size:clamp(2.1rem,4vw,3.5rem);line-height:1.05;letter-spacing:-.04em}
-.section-intro{max-width:500px;color:var(--muted)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px}
-.about-text{font-size:1.05rem;color:#44545c}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:35px}
-.stat{background:var(--paper);padding:22px}
-.stat strong{display:block;font-size:1.8rem}
-.stat small{color:var(--muted)}
+
+/* Sections General */
+section{padding:80px 0}
+.section-head{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:45px}
+.eyebrow{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:10px}
+h2{font-size:clamp(1.8rem,3.5vw,3.2rem);line-height:1.1;letter-spacing:-.03em}
+.section-intro{max-width:500px;color:var(--muted);font-size:.95rem}
+
+/* Grids */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.about-text{font-size:1rem;color:#44545c}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:30px}
+.stat{background:var(--paper);padding:18px 14px;text-align:center}
+.stat strong{display:block;font-size:1.6rem}
+.stat small{color:var(--muted);font-size:.78rem}
+
 .services{background:#fff}
 .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.service{border:1px solid var(--line);padding:30px;min-height:230px;transition:.2s}
+.service{border:1px solid var(--line);padding:24px;min-height:200px;transition:.2s}
 .service:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
 .service-num{font-size:.75rem;color:var(--accent);font-weight:800}
-.service h3{font-size:1.35rem;margin:40px 0 10px}
-.service p{color:var(--muted);font-size:.92rem}
+.service h3{font-size:1.25rem;margin:25px 0 10px}
+.service p{color:var(--muted);font-size:.9rem}
+
 .projects{background:var(--paper)}
 .project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
 .project{background:#fff;border:1px solid var(--line);overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
 .project:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
-
-/* Uncropped Single Project Visual */
 .project-visual{position:relative;overflow:hidden;background:#243741}
 .project-visual-bg{width:100%;height:auto;display:block;transition:transform .3s ease;cursor:zoom-in}
 .project:hover .project-visual-bg{transform:scale(1.02)}
 
-/* Interactive Multi-Image Slider */
+/* Slider & Lightbox */
 .project-slider{position:relative;width:100%;overflow:hidden;background:#1a2b34}
 .slider-track{position:relative;width:100%}
 .slide{width:100%;height:auto;display:none;cursor:zoom-in}
 .slide.active{display:block}
-.slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(13,27,34,0.7);color:#fff;border:none;font-size:1.1rem;padding:8px 12px;cursor:pointer;z-index:5;transition:background 0.2s}
-.slider-btn:hover{background:var(--accent)}
-.slider-btn.prev{left:10px}
-.slider-btn.next{right:10px}
-.slider-dots{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5}
-.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer;transition:background 0.2s}
-.dot.active{background:var(--accent);width:20px;border-radius:4px}
+.slider-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(13,27,34,0.7);color:#fff;border:none;font-size:1.2rem;padding:12px 16px;cursor:pointer;z-index:5}
+.slider-btn.prev{left:5px}
+.slider-btn.next{right:5px}
+.slider-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:5}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.5);cursor:pointer}
+.dot.active{background:var(--accent);width:18px;border-radius:4px}
 
-/* Lightbox Modal */
-.lightbox-modal{display:none;position:fixed;z-index:1000;top:0;left:0;width:100%;height:100%;background-color:rgba(13,27,34,0.95);backdrop-filter:blur(8px);justify-content:center;align-items:center;flex-direction:column}
+.lightbox-modal{display:none;position:fixed;z-index:1000;top:0;left:0;width:100%;height:100%;background-color:rgba(13,27,34,0.95);backdrop-filter:blur(8px);justify-content:center;align-items:center;flex-direction:column;padding:15px}
 .lightbox-modal.active{display:flex}
-.lightbox-content{max-width:90%;max-height:80vh;object-fit:contain;border:1px solid rgba(255,255,255,0.2);box-shadow:0 20px 50px rgba(0,0,0,0.5)}
-.lightbox-close{position:absolute;top:20px;right:35px;color:#fff;font-size:40px;font-weight:bold;cursor:pointer;transition:color 0.2s}
-.lightbox-close:hover{color:var(--accent)}
-.lightbox-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.3);font-size:2rem;padding:12px 18px;cursor:pointer;transition:all 0.2s;user-select:none}
-.lightbox-btn:hover{background:var(--accent);border-color:var(--accent)}
-.lightbox-btn.prev{left:20px}
-.lightbox-btn.next{right:20px}
+.lightbox-content{max-width:95%;max-height:80vh;object-fit:contain;border:1px solid rgba(255,255,255,0.2)}
+.lightbox-close{position:absolute;top:15px;right:20px;color:#fff;font-size:35px;font-weight:bold;cursor:pointer;z-index:1001;padding:10px}
+.lightbox-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);font-size:1.5rem;padding:14px;cursor:pointer;user-select:none;z-index:1001}
+.lightbox-btn.prev{left:10px}
+.lightbox-btn.next{right:10px}
 
-.project-body{padding:25px}
-.project-meta{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:800}
-.project-body p{color:var(--muted);font-size:.9rem;margin:12px 0 18px}
-.tags{display:flex;gap:7px;flex-wrap:wrap}
-.tag{font-size:.68rem;border:1px solid var(--line);padding:5px 8px;color:#506069}
+.project-body{padding:20px}
+.project-meta{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:800}
+.project-body p{color:var(--muted);font-size:.88rem;margin:10px 0 16px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:.65rem;border:1px solid var(--line);padding:4px 7px;color:#506069}
+
 .expertise{background:#fff}
-.expertise-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.expertise-box{border-top:2px solid var(--ink);padding:25px 0}
-.expertise-box h3{margin-bottom:12px}
-.expertise-box p{color:var(--muted)}
+.expertise-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.expertise-box{border-top:2px solid var(--ink);padding:20px 0}
+.expertise-box h3{margin-bottom:10px;font-size:1.15rem}
+.expertise-box p{color:var(--muted);font-size:.9rem}
+
 .timeline{border-left:1px solid var(--line);margin-left:8px}
-.job{padding:0 0 45px 35px;position:relative}
-.job:before{content:"";width:11px;height:11px;border:2px solid var(--accent);background:var(--paper);position:absolute;left:-7px;top:5px;border-radius:50%}
-.job-year{font-size:.75rem;color:var(--accent);font-weight:800;letter-spacing:.1em}
-.job h3{margin:5px 0 3px;font-size:1.25rem}
-.job-company{color:#52626a;font-weight:700;font-size:.9rem}
-.job p{color:var(--muted);font-size:.9rem;margin-top:10px}
+.job{padding:0 0 35px 25px;position:relative}
+.job:before{content:"";width:11px;height:11px;border:2px solid var(--accent);background:var(--paper);position:absolute;left:-6px;top:5px;border-radius:50%}
+.job-year{font-size:.72rem;color:var(--accent);font-weight:800;letter-spacing:.1em}
+.job h3{margin:4px 0 2px;font-size:1.15rem}
+.job-company{color:#52626a;font-weight:700;font-size:.88rem}
+.job p{color:var(--muted);font-size:.88rem;margin-top:8px}
+
 .contact{background:var(--dark);color:#fff}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px}
-.contact h2{max-width:600px}
-.contact-copy{color:#cbd6da;margin-top:20px;max-width:560px}
-.contact-list{display:grid;gap:20px}
-.contact-item{border-bottom:1px solid rgba(255,255,255,.16);padding-bottom:18px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px}
+.contact-copy{color:#cbd6da;margin-top:16px;font-size:.95rem}
+.contact-list{display:grid;gap:16px}
+.contact-item{border-bottom:1px solid rgba(255,255,255,.16);padding-bottom:14px}
 .contact-item small{display:block;color:#9eafb6;text-transform:uppercase;letter-spacing:.12em;font-size:.65rem;margin-bottom:4px}
 .contact-item a:hover{color:#d8b17c}
-footer{background:#081219;color:#8fa0a7;padding:25px 0;font-size:.75rem}
-.footer-inner{display:flex;justify-content:space-between;gap:20px}
-@media(max-width:850px){
-  .nav-links{display:none}
-  .hero-grid,.about-grid,.contact-grid,.expertise-grid{grid-template-columns:1fr}
-  .hero{padding-top:120px}
-  .hero-card{max-width:360px}
-  .service-grid{grid-template-columns:1fr 1fr}
-  .project-grid{grid-template-columns:1fr}
-  .section-head{display:block}
-  .section-intro{margin-top:20px}
+
+footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
+.footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+
+/* RESPONSIVE BREAKPOINTS */
+@media(max-width:992px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-card{max-width:450px}
+  .service-grid{grid-template-columns:repeat(2,1fr)}
+  .about-grid, .expertise-grid, .contact-grid{grid-template-columns:1fr;gap:35px}
+  .section-head{flex-direction:column;align-items:flex-start}
 }
-@media(max-width:560px){
-  section{padding:75px 0}
-  .service-grid{grid-template-columns:1fr}
+
+@media(max-width:768px){
+  .menu-toggle{display:block}
+  .nav-links{display:none;position:absolute;top:74px;left:0;width:100%;background:var(--paper);flex-direction:column;gap:0;border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+  .nav-links.active{display:flex}
+  .nav-links a{padding:16px 24px;border-top:1px solid var(--line)}
+  .project-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:480px){
+  section{padding:55px 0}
+  .hero{padding-top:100px}
+  .actions{flex-direction:column;width:100%}
+  .actions .btn{width:100%}
   .stats{grid-template-columns:1fr}
-  h1{font-size:3.25rem}
-  .hero-copy{font-size:1rem}
-  .footer-inner{display:block}
+  .service-grid{grid-template-columns:1fr}
+  .lightbox-btn{padding:8px 12px;font-size:1.2rem}
 }
 </style>
 </head>
@@ -154,12 +170,13 @@ footer{background:#081219;color:#8fa0a7;padding:25px 0;font-size:.75rem}
 <nav>
   <div class="container nav-inner">
     <a class="brand" href="#home">KR<span>.</span></a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#services">Expertise</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle navigation">☰</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" onclick="closeMenu()">About</a>
+      <a href="#services" onclick="closeMenu()">Expertise</a>
+      <a href="#projects" onclick="closeMenu()">Projects</a>
+      <a href="#experience" onclick="closeMenu()">Experience</a>
+      <a href="#contact" onclick="closeMenu()">Contact</a>
     </div>
   </div>
 </nav>
@@ -177,7 +194,7 @@ footer{background:#081219;color:#8fa0a7;padding:25px 0;font-size:.75rem}
     </div>
     <aside class="hero-card">
       <div class="hero-photo-wrapper">
-        <img src="images/headshot.png" alt="John Kristian A. Ramos, RCE" class="hero-photo" onerror="this.style.display='none'">
+        <img src="images/headshot.webp" alt="John Kristian A. Ramos, RCE" class="hero-photo" decoding="async" fetchpriority="high" onerror="this.style.display='none'">
       </div>
       <div class="number">3+</div>
       <p>Years of construction project experience across building, infrastructure, steel fabrication and remote estimating.</p>
@@ -191,13 +208,13 @@ footer{background:#081219;color:#8fa0a7;padding:25px 0;font-size:.75rem}
 <section id="about">
   <div class="container">
     <div class="section-head">
-      <div><div class="eyebrow">01 — About</div><h2>Engineering with a<br>commercial mindset.</h2></div>
+      <div><div class="eyebrow">01 — About</div><h2>Engineering with a commercial mindset.</h2></div>
       <p class="section-intro">A construction professional combining site execution, quantity surveying, estimating and project coordination.</p>
     </div>
     <div class="about-grid">
       <div>
         <p class="about-text">I am a Registered Civil Engineer with over three years of construction experience in project engineering, quantity surveying, cost estimation, documentation management and remote client support.</p>
-        <p class="about-text" style="margin-top:20px">My experience spans building and infrastructure projects, steel fabrication and erection, interior fit-out, and bespoke joinery estimating for an international client. I work comfortably with contractors, suppliers, consultants and multidisciplinary project teams.</p>
+        <p class="about-text" style="margin-top:16px">My experience spans building and infrastructure projects, steel fabrication and erection, interior fit-out, and bespoke joinery estimating for an international client. I work comfortably with contractors, suppliers, consultants and multidisciplinary project teams.</p>
       </div>
       <div>
         <p class="about-text">My approach is detail-oriented and practical: understand the drawings, establish reliable quantities, organize the information clearly, monitor costs and communicate what the project team needs to know.</p>
@@ -236,13 +253,12 @@ footer{background:#081219;color:#8fa0a7;padding:25px 0;font-size:.75rem}
     </div>
     <div class="project-grid">
       
-      <!-- Project 1 (Interactive Slider + Lightbox) -->
       <article class="project">
         <div class="project-slider" id="piling-slider">
           <div class="slider-track">
-            <img src="images/project-piling-1.png" alt="Piling Works 1" class="slide active" onerror="this.style.display='none'">
-            <img src="images/project-piling-2.png" alt="Piling Works 2" class="slide" onerror="this.style.display='none'">
-            <img src="images/project-piling-3.png" alt="Piling Works 3" class="slide" onerror="this.style.display='none'">
+            <img src="images/project-piling-1.webp" alt="Piling Works 1" class="slide active" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img src="images/project-piling-2.webp" alt="Piling Works 2" class="slide" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img src="images/project-piling-3.webp" alt="Piling Works 3" class="slide" loading="lazy" decoding="async" onerror="this.style.display='none'">
           </div>
           <button class="slider-btn prev" onclick="moveSlide('piling-slider', -1)" aria-label="Previous image">&#10094;</button>
           <button class="slider-btn next" onclick="moveSlide('piling-slider', 1)" aria-label="Next image">&#10095;</button>
@@ -254,46 +270,43 @@ footer{background:#081219;color:#8fa0a7;padding:25px 0;font-size:.75rem}
         </div>
         <div class="project-body">
           <div class="project-meta">₱50M · Davao City</div>
-          <h3 style="font-size:1.3rem; margin:6px 0 10px;">Maldives Oasis — Building D: Pile Installation & Excavation</h3>
+          <h3 style="font-size:1.2rem; margin:6px 0 8px;">Maldives Oasis — Building D: Pile Installation & Excavation</h3>
           <p>Assisted and supervised pile installation and excavation, including takeoffs for prestressed concrete piles, excavation and backfill. Coordinated with piling subcontractors, surveyors and safety officers.</p>
           <div class="tags"><span class="tag">Takeoffs</span><span class="tag">BOQ</span><span class="tag">Cost Control</span><span class="tag">Site Supervision</span></div>
         </div>
       </article>
 
-      <!-- Project 2 -->
       <article class="project">
         <div class="project-visual">
-          <img src="images/project-foundation.png" alt="Maldives Oasis Foundation System" class="project-visual-bg" onerror="this.style.display='none'">
+          <img src="images/project-foundation.webp" alt="Maldives Oasis Foundation System" class="project-visual-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
         </div>
         <div class="project-body">
           <div class="project-meta">₱20M · 1,300m³ Mat Foundation</div>
-          <h3 style="font-size:1.3rem; margin:6px 0 10px;">Maldives Oasis — Building D: Foundation System</h3>
+          <h3 style="font-size:1.2rem; margin:6px 0 8px;">Maldives Oasis — Building D: Foundation System</h3>
           <p>Supported reinforced-concrete mat foundation construction, prepared reinforcement, formwork and concrete material schedules, and tracked actual expenditure against the project allocation.</p>
           <div class="tags"><span class="tag">Material Takeoff</span><span class="tag">Cost Model</span><span class="tag">Progress Billing</span></div>
         </div>
       </article>
 
-      <!-- Project 3 -->
       <article class="project">
         <div class="project-visual">
-          <img src="images/project-guardhouse.png" alt="Gate and Guardhouse Construction" class="project-visual-bg" onerror="this.style.display='none'">
+          <img src="images/project-guardhouse.webp" alt="Gate and Guardhouse Construction" class="project-visual-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
         </div>
         <div class="project-body">
           <div class="project-meta">₱3.5M · Davao City</div>
-          <h3 style="font-size:1.3rem; margin:6px 0 10px;">Maldives Oasis — Gate & Guardhouse: Construction & Fit-Out</h3>
+          <h3 style="font-size:1.2rem; margin:6px 0 8px;">Maldives Oasis — Gate & Guardhouse: Construction & Fit-Out</h3>
           <p>Oversaw structural construction through finishes and MEP installations while compiling BOQs and supporting procurement. Validated subcontractor invoices against completed work.</p>
           <div class="tags"><span class="tag">BOQ</span><span class="tag">Fit-Out</span><span class="tag">Procurement</span><span class="tag">Cost Control</span></div>
         </div>
       </article>
 
-      <!-- Project 4 -->
       <article class="project">
         <div class="project-visual">
-          <img src="images/project-fitout.png" alt="Building A Fit Out Works" class="project-visual-bg" onerror="this.style.display='none'">
+          <img src="images/project-fitout.webp" alt="Building A Fit Out Works" class="project-visual-bg" loading="lazy" decoding="async" onerror="this.style.display='none'">
         </div>
         <div class="project-body">
           <div class="project-meta">₱4.5M + ₱5.5M · Davao City</div>
-          <h3 style="font-size:1.3rem; margin:6px 0 10px;">Maldives Oasis — Building A: Studio & 2BR Fit-Out</h3>
+          <h3 style="font-size:1.2rem; margin:6px 0 8px;">Maldives Oasis — Building A: Studio & 2BR Fit-Out</h3>
           <p>Supervised interior finishing and coordinated multiple trade contractors. Prepared finishes takeoffs and BOQs covering tiles, painting, ceilings, waterproofing, fixtures and MEP-related works.</p>
           <div class="tags"><span class="tag">Finishes Takeoff</span><span class="tag">BOQ</span><span class="tag">Variations</span><span class="tag">Cost Tracking</span></div>
         </div>
@@ -340,7 +353,7 @@ footer{background:#081219;color:#8fa0a7;padding:25px 0;font-size:.75rem}
       <div class="eyebrow">06 — Contact</div>
       <h2>Let's discuss your next project.</h2>
       <p class="contact-copy">For construction estimating, quantity takeoffs, BOQ preparation, project coordination or related technical work, feel free to get in touch.</p>
-      <div style="margin-top:30px"><a class="btn" href="mailto:Jkristianramos@gmail.com">Send an Email</a></div>
+      <div style="margin-top:24px"><a class="btn" href="mailto:Jkristianramos@gmail.com">Send an Email</a></div>
     </div>
     <div class="contact-list">
       <div class="contact-item"><small>Email</small><a href="mailto:Jkristianramos@gmail.com">Jkristianramos@gmail.com</a></div>
@@ -358,15 +371,25 @@ footer{background:#081219;color:#8fa0a7;padding:25px 0;font-size:.75rem}
   </div>
 </footer>
 
-<!-- Lightbox Modal Container -->
 <div id="lightbox" class="lightbox-modal">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
   <img id="lightbox-img" class="lightbox-content" src="" alt="Enlarged view">
-  <button class="lightbox-btn prev" onclick="changeLightboxSlide(-1)">&#10094;</button>
-  <button class="lightbox-btn next" onclick="changeLightboxSlide(1)">&#10095;</button>
+  <button class="lightbox-btn prev" onclick="changeLightboxSlide(-1)" aria-label="Previous image">&#10094;</button>
+  <button class="lightbox-btn next" onclick="changeLightboxSlide(1)" aria-label="Next image">&#10095;</button>
 </div>
 
 <script>
+// Toggle Mobile Navigation Menu
+function toggleMenu() {
+  const navLinks = document.getElementById('navLinks');
+  navLinks.classList.toggle('active');
+}
+
+function closeMenu() {
+  const navLinks = document.getElementById('navLinks');
+  navLinks.classList.remove('active');
+}
+
 // Inline card slider navigation
 function moveSlide(sliderId, direction) {
   const slider = document.getElementById(sliderId);
