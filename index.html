@@ -164,11 +164,34 @@ footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
 .review-status{color:var(--muted);font-size:.85rem;padding:25px;border:1px dashed var(--line);text-align:center;grid-column:1/-1}
 .review-modal{display:none;position:fixed;z-index:1100;inset:0;background:rgba(13,27,34,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px}
 .review-modal.active{display:flex}
-.review-modal-card{position:relative;width:min(760px,100%);height:min(820px,92vh);background:#fff;box-shadow:var(--shadow);overflow:hidden}
-.review-modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line);background:var(--paper)}
+.review-modal-card{position:relative;width:min(620px,100%);max-height:92vh;overflow:auto;background:#fff;box-shadow:var(--shadow)}
+.review-modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line);background:var(--paper);position:sticky;top:0;z-index:2}
 .review-modal-header h3{font-size:1rem}
 .review-modal-close{border:0;background:none;font-size:30px;line-height:1;color:var(--ink);cursor:pointer;padding:0 4px}
-.review-form-frame{width:100%;height:calc(100% - 65px);border:0}
+.review-form{padding:24px}
+.review-form-intro{color:var(--muted);font-size:.84rem;line-height:1.6;margin:0 0 22px}
+.review-field{margin-bottom:17px}
+.review-field label{display:block;font-size:.76rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;color:var(--ink)}
+.review-field input,.review-field textarea{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);padding:12px 13px;font:inherit;font-size:.9rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.review-field input:focus,.review-field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(197,151,74,.12)}
+.review-field textarea{min-height:145px;resize:vertical;line-height:1.6}
+.review-required{color:var(--accent)}
+.review-rating{display:flex;gap:5px;flex-direction:row-reverse;justify-content:flex-end}
+.review-rating input{position:absolute;opacity:0;pointer-events:none}
+.review-rating label{font-size:1.8rem;line-height:1;color:#c9ced1;cursor:pointer;transition:color .15s}
+.review-rating label:hover,.review-rating label:hover~label,.review-rating input:checked~label{color:var(--accent)}
+.review-submit{width:100%;border:1px solid var(--ink);background:var(--ink);color:#fff;padding:13px 20px;font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.review-submit:hover{background:var(--accent);border-color:var(--accent)}
+.review-submit:disabled{opacity:.6;cursor:not-allowed}
+.review-form-status{margin-top:14px;font-size:.82rem;line-height:1.5;display:none}
+.review-form-status.show{display:block}
+.review-form-status.success{color:#356b43}
+.review-form-status.error{color:#a33d35}
+.review-honeypot{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+@media(max-width:480px){
+  .review-modal{padding:10px}
+  .review-form{padding:20px}
+}
 @media(max-width:768px){
   .review-grid{grid-template-columns:1fr}
   .review-actions{justify-content:stretch}
@@ -505,12 +528,43 @@ footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
       <h3 id="reviewModalTitle">Share Your Experience</h3>
       <button class="review-modal-close" type="button" onclick="closeReviewModal()" aria-label="Close review form">&times;</button>
     </div>
-    <iframe
-      class="review-form-frame"
-      title="Leave a review"
-      src="https://docs.google.com/forms/d/e/1FAIpQLSdEhIPJONkzfoF2QEuXsVlSibuIhg0Q3TnF6C0x4Iq1vsE7LQ/viewform?embedded=true">
-      Loading…
-    </iframe>
+    <form id="reviewForm" class="review-form" onsubmit="submitReview(event)">
+      <p class="review-form-intro">If we have worked together, I would appreciate your feedback. Reviews are reviewed before they are published on this website.</p>
+
+      <div class="review-field">
+        <label for="reviewName">Name <span class="review-required">*</span></label>
+        <input id="reviewName" name="name" type="text" maxlength="100" autocomplete="name" required>
+      </div>
+
+      <div class="review-field">
+        <label for="reviewRole">Role / Company</label>
+        <input id="reviewRole" name="role" type="text" maxlength="150" autocomplete="organization-title">
+      </div>
+
+      <div class="review-field">
+        <label>Rating <span class="review-required">*</span></label>
+        <div class="review-rating" aria-label="Choose a rating from 1 to 5 stars">
+          <input id="rating5" name="rating" type="radio" value="5" required><label for="rating5" title="5 stars">★</label>
+          <input id="rating4" name="rating" type="radio" value="4"><label for="rating4" title="4 stars">★</label>
+          <input id="rating3" name="rating" type="radio" value="3"><label for="rating3" title="3 stars">★</label>
+          <input id="rating2" name="rating" type="radio" value="2"><label for="rating2" title="2 stars">★</label>
+          <input id="rating1" name="rating" type="radio" value="1"><label for="rating1" title="1 star">★</label>
+        </div>
+      </div>
+
+      <div class="review-field">
+        <label for="reviewText">Your Review <span class="review-required">*</span></label>
+        <textarea id="reviewText" name="review" maxlength="1000" required placeholder="Tell me about your experience working with me..."></textarea>
+      </div>
+
+      <div class="review-honeypot" aria-hidden="true">
+        <label for="reviewWebsite">Website</label>
+        <input id="reviewWebsite" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button id="reviewSubmit" class="review-submit" type="submit">Submit Review</button>
+      <div id="reviewFormStatus" class="review-form-status" role="status" aria-live="polite"></div>
+    </form>
   </div>
 </div>
 
@@ -615,11 +669,12 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowRight') changeLightboxSlide(1);
 });
 
-// Review form modal
+// Review form modal + Google Apps Script API
 function openReviewModal() {
   const modal = document.getElementById('reviewModal');
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('reviewName')?.focus(), 50);
 }
 
 function closeReviewModal() {
@@ -628,70 +683,82 @@ function closeReviewModal() {
   document.body.style.overflow = 'auto';
 }
 
-// Close review modal when clicking outside the form card or pressing Escape.
 document.getElementById('reviewModal')?.addEventListener('click', (e) => {
   if (e.target.id === 'reviewModal') closeReviewModal();
 });
 
-// Google Sheet configuration for approved public reviews.
-const REVIEWS_SHEET_ID = '1BOzIGfB-je6sdp42ZJmprMme9gpFfC0KHxy1aeT1tx0';
-const REVIEWS_SHEET_GID = '516713886';
+// Replace this URL after deploying the Google Apps Script shown in Code.gs.
+const REVIEWS_API_URL = https://script.google.com/macros/s/AKfycbwCr5eprJa6V_k-2JxFJcsCke2q6zdAIEx3SKC40w2lc0P6x41jYaLirM-fC0ZWvFh8qQ/exec;
+
+function setReviewStatus(message, type) {
+  const status = document.getElementById('reviewFormStatus');
+  status.textContent = message;
+  status.className = 'review-form-status show ' + (type || '');
+}
+
+async function submitReview(event) {
+  event.preventDefault();
+
+  const form = document.getElementById('reviewForm');
+  const submitButton = document.getElementById('reviewSubmit');
+
+  if (REVIEWS_API_URL.includes('PASTE_YOUR_APPS_SCRIPT')) {
+    setReviewStatus('The review form is installed, but the website still needs the Apps Script web app URL.', 'error');
+    return;
+  }
+
+  if (!form.reportValidity()) return;
+
+  const formData = new FormData(form);
+  const payload = new URLSearchParams();
+  payload.set('name', String(formData.get('name') || '').trim());
+  payload.set('role', String(formData.get('role') || '').trim());
+  payload.set('rating', String(formData.get('rating') || '').trim());
+  payload.set('review', String(formData.get('review') || '').trim());
+  payload.set('website', String(formData.get('website') || '').trim());
+
+  submitButton.disabled = true;
+  submitButton.textContent = 'Submitting…';
+  setReviewStatus('', '');
+
+  try {
+    const response = await fetch(REVIEWS_API_URL, {
+      method: 'POST',
+      body: payload
+    });
+
+    const result = await response.json();
+    if (!result.success) throw new Error(result.message || 'Unable to submit your review.');
+
+    form.reset();
+    setReviewStatus('Thank you. Your review has been submitted and will appear after approval.', 'success');
+    setTimeout(closeReviewModal, 2200);
+  } catch (error) {
+    console.error('Review submission failed:', error);
+    setReviewStatus('We could not submit your review right now. Please try again later.', 'error');
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = 'Submit Review';
+  }
+}
 
 async function loadApprovedReviews() {
   const grid = document.getElementById('reviewGrid');
   if (!grid) return;
 
+  if (REVIEWS_API_URL.includes('PASTE_YOUR_APPS_SCRIPT')) {
+    grid.innerHTML = '<div class="review-status">Reviews are ready, but the review service still needs to be connected.</div>';
+    return;
+  }
+
   try {
-    // gviz returns JSONP-like text; using the response body keeps this
-    // compatible with a static GitHub Pages site without a backend.
-    const url =
-      'https://docs.google.com/spreadsheets/d/' +
-      encodeURIComponent(REVIEWS_SHEET_ID) +
-      '/gviz/tq?tqx=out:json&gid=' +
-      encodeURIComponent(REVIEWS_SHEET_GID);
+    const response = await fetch(REVIEWS_API_URL, { method: 'GET' });
+    if (!response.ok) throw new Error('Unable to read approved reviews.');
 
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Unable to read the review sheet.');
+    const result = await response.json();
+    if (!result.success) throw new Error(result.message || 'Unable to read approved reviews.');
 
-    const text = await response.text();
-    const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?$/);
-    if (!match) throw new Error('Unexpected Google Sheets response.');
-
-    const data = JSON.parse(match[1]);
-    const columns = (data.table?.cols || []).map(col =>
-      String(col.label || col.id || '').trim().toLowerCase()
-    );
-
-    const rows = data.table?.rows || [];
-
-    const findColumn = (...terms) => columns.findIndex(col =>
-      terms.some(term => col.includes(term))
-    );
-
-    const nameIndex = findColumn('name');
-    const roleIndex = findColumn('role', 'company');
-    const reviewIndex = findColumn('review', 'feedback', 'testimonial');
-    const approvedIndex = findColumn('approved');
-    const ratingIndex = findColumn('rating', 'star');
-
-    if (nameIndex < 0 || reviewIndex < 0 || approvedIndex < 0) {
-      throw new Error('Required review columns were not found.');
-    }
-
-    const approvedReviews = rows
-      .map(row => row.c || [])
-      .map(cells => ({
-        name: cells[nameIndex]?.v ?? '',
-        role: roleIndex >= 0 ? (cells[roleIndex]?.v ?? '') : '',
-        review: cells[reviewIndex]?.v ?? '',
-        approved: cells[approvedIndex]?.v,
-        rating: ratingIndex >= 0 ? (cells[ratingIndex]?.v ?? '') : ''
-      }))
-      .filter(item => {
-        const value = String(item.approved).trim().toLowerCase();
-        return value === 'true' || value === 'yes' || value === 'approved' || value === '1';
-      })
-      .filter(item => String(item.review).trim());
+    const approvedReviews = Array.isArray(result.reviews) ? result.reviews : [];
 
     if (!approvedReviews.length) {
       grid.innerHTML = '<div class="review-status">No reviews have been published yet. If we have worked together, you can be the first to leave one.</div>';
@@ -704,16 +771,16 @@ async function loadApprovedReviews() {
         ? '★'.repeat(Math.round(ratingNumber)) + '☆'.repeat(5 - Math.round(ratingNumber))
         : '';
 
-      const name = escapeReviewHtml(String(item.name));
-      const role = escapeReviewHtml(String(item.role));
-      const review = escapeReviewHtml(String(item.review));
+      const name = escapeReviewHtml(String(item.name || 'Anonymous'));
+      const role = escapeReviewHtml(String(item.role || ''));
+      const review = escapeReviewHtml(String(item.review || ''));
 
       return `
         <article class="review-card">
           ${stars ? `<div class="review-stars" aria-label="${Math.round(ratingNumber)} out of 5 stars">${stars}</div>` : ''}
           <p class="review-quote">“${review}”</p>
           <div class="review-author">
-            <strong>${name || 'Anonymous'}</strong>
+            <strong>${name}</strong>
             ${role ? `<span>${role}</span>` : ''}
           </div>
         </article>
