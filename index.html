@@ -79,6 +79,16 @@ h2{font-size:clamp(1.8rem,3.5vw,3.2rem);line-height:1.1;letter-spacing:-.03em}
 .service p{color:var(--muted);font-size:.9rem}
 
 .projects{background:var(--paper)}
+.samples{background:#fff}
+.sample-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.sample-card{border:1px solid var(--line);padding:24px;min-height:200px;transition:.2s;display:flex;flex-direction:column}
+.sample-card:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
+.sample-num{font-size:.75rem;color:var(--accent);font-weight:800}
+.sample-card h3{font-size:1.25rem;margin:20px 0 10px}
+.sample-card p{color:var(--muted);font-size:.9rem;flex-grow:1}
+.sample-meta{font-size:.72rem;color:var(--muted);margin-top:14px}
+.sample-link{margin-top:16px;font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.sample-link:hover{text-decoration:underline}
 .project-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
 .project{background:#fff;border:1px solid var(--line);overflow:hidden;transition:transform .2s ease, box-shadow .2s ease}
 .project:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
@@ -138,11 +148,39 @@ h2{font-size:clamp(1.8rem,3.5vw,3.2rem);line-height:1.1;letter-spacing:-.03em}
 footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
 .footer-inner{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
 
+
+/* Reviews */
+.reviews{background:var(--paper)}
+.review-actions{display:flex;justify-content:flex-end;align-items:center;margin-bottom:28px}
+.review-btn{display:inline-flex;justify-content:center;align-items:center;padding:13px 20px;border:1px solid var(--ink);background:var(--ink);color:#fff;font-weight:800;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.review-btn:hover{background:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+.review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.review-card{background:#fff;border:1px solid var(--line);padding:25px;position:relative}
+.review-stars{color:var(--accent);font-size:1rem;letter-spacing:.12em;margin-bottom:12px;min-height:20px}
+.review-quote{font-size:.95rem;color:#3f5058;line-height:1.75;margin-bottom:20px}
+.review-author{border-top:1px solid var(--line);padding-top:14px}
+.review-author strong{display:block;font-size:.9rem}
+.review-author span{display:block;color:var(--muted);font-size:.75rem;margin-top:2px}
+.review-status{color:var(--muted);font-size:.85rem;padding:25px;border:1px dashed var(--line);text-align:center;grid-column:1/-1}
+.review-modal{display:none;position:fixed;z-index:1100;inset:0;background:rgba(13,27,34,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px}
+.review-modal.active{display:flex}
+.review-modal-card{position:relative;width:min(760px,100%);height:min(820px,92vh);background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.review-modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line);background:var(--paper)}
+.review-modal-header h3{font-size:1rem}
+.review-modal-close{border:0;background:none;font-size:30px;line-height:1;color:var(--ink);cursor:pointer;padding:0 4px}
+.review-form-frame{width:100%;height:calc(100% - 65px);border:0}
+@media(max-width:768px){
+  .review-grid{grid-template-columns:1fr}
+  .review-actions{justify-content:stretch}
+  .review-btn{width:100%}
+}
+
 /* RESPONSIVE BREAKPOINTS */
 @media(max-width:992px){
   .hero-grid{grid-template-columns:1fr;gap:40px}
   .hero-card{max-width:450px}
   .service-grid{grid-template-columns:repeat(2,1fr)}
+  .sample-grid{grid-template-columns:repeat(2,1fr)}
   .about-grid, .expertise-grid, .contact-grid{grid-template-columns:1fr;gap:35px}
   .section-head{flex-direction:column;align-items:flex-start}
 }
@@ -162,6 +200,7 @@ footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
   .actions .btn{width:100%}
   .stats{grid-template-columns:1fr}
   .service-grid{grid-template-columns:1fr}
+  .sample-grid{grid-template-columns:1fr}
   .lightbox-btn{padding:8px 12px;font-size:1.2rem}
 }
 </style>
@@ -176,6 +215,8 @@ footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
       <a href="#about" onclick="closeMenu()">About</a>
       <a href="#services" onclick="closeMenu()">Expertise</a>
       <a href="#projects" onclick="closeMenu()">Projects</a>
+      <a href="#samples" onclick="closeMenu()">Samples</a>
+      <a href="#reviews" onclick="closeMenu()">Reviews</a>
       <a href="#experience" onclick="closeMenu()">Experience</a>
       <a href="#contact" onclick="closeMenu()">Contact</a>
     </div>
@@ -316,7 +357,7 @@ footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
         <div class="project-slider" id="guardhouse-slider">
           <div class="slider-track">
             <img src="images/guardhouse-1.webp" alt="Gate and Guardhouse entrance structure" class="slide active" loading="lazy" decoding="async" onerror="this.style.display='none'">
-            <img src="images/guardhouse-2.webp" alt="Gate and Guardhouse building exterior" class="slide" loading="lazy" decoding="async" onerror="this.style.display='none'">
+            <img src="images/guardhouse-2.webp" alt="Gate and Guardhouse entrance canopy" class="slide" loading="lazy" decoding="async" onerror="this.style.display='none'">
           </div>
           <button class="slider-btn prev" onclick="moveSlide('guardhouse-slider', -1)" aria-label="Previous image">&#10094;</button>
           <button class="slider-btn next" onclick="moveSlide('guardhouse-slider', 1)" aria-label="Next image">&#10095;</button>
@@ -368,10 +409,44 @@ footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
   </div>
 </section>
 
+<section class="samples" id="samples">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="eyebrow">04 — Work Samples</div><h2>See the work.</h2></div>
+      <p class="section-intro">Redacted samples of actual project documentation. Client and project names have been removed; figures, quantities and structure are kept exactly as prepared.</p>
+    </div>
+    <div class="sample-grid">
+      <article class="sample-card">
+        <div class="sample-num">01</div>
+        <h3>Bill of Quantities</h3>
+        <p>Multi-trade BOQ covering site, structural, architectural, plumbing and electrical works, with unit costs, weighted percentages and cost breakdowns.</p>
+        <div class="sample-meta">PDF · 13 pages</div>
+        <a class="sample-link" href="samples/BOQ_Sample_Redacted.pdf" target="_blank" rel="noopener">View PDF Sample →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<section class="reviews" id="reviews">
+  <div class="container">
+    <div class="section-head">
+      <div><div class="eyebrow">05 — Reviews</div><h2>What people say.</h2></div>
+      <p class="section-intro">Feedback from clients, colleagues and project collaborators. Reviews are displayed only after approval.</p>
+    </div>
+    <div class="review-actions">
+      <button class="review-btn" type="button" onclick="openReviewModal()">Leave a Review</button>
+    </div>
+    <div class="review-grid" id="reviewGrid">
+      <div class="review-status">Loading approved reviews…</div>
+    </div>
+  </div>
+</section>
+
 <section class="expertise">
   <div class="container">
     <div class="section-head">
-      <div><div class="eyebrow">04 — Technical Profile</div><h2>Built for detail.<br>Focused on delivery.</h2></div>
+      <div><div class="eyebrow">06 — Technical Profile</div><h2>Built for detail.<br>Focused on delivery.</h2></div>
     </div>
     <div class="expertise-grid">
       <div class="expertise-box"><h3>Quantity Surveying & Cost Control</h3><p>BOQ preparation · Material takeoffs · Cost planning · Budget forecasting · Pricing analysis · Variation orders · Final account reconciliation</p></div>
@@ -387,7 +462,7 @@ footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
 <section id="experience">
   <div class="container">
     <div class="section-head">
-      <div><div class="eyebrow">05 — Experience</div><h2>Career timeline.</h2></div>
+      <div><div class="eyebrow">07 — Experience</div><h2>Career timeline.</h2></div>
       <p class="section-intro">Experience across estimating, project engineering, construction supervision and technical coordination.</p>
     </div>
     <div class="timeline">
@@ -402,7 +477,7 @@ footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
 <section class="contact" id="contact">
   <div class="container contact-grid">
     <div>
-      <div class="eyebrow">06 — Contact</div>
+      <div class="eyebrow">08 — Contact</div>
       <h2>Let's discuss your next project.</h2>
       <p class="contact-copy">For construction estimating, quantity takeoffs, BOQ preparation, project coordination or related technical work, feel free to get in touch.</p>
       <div style="margin-top:24px"><a class="btn" href="mailto:Jkristianramos@gmail.com">Send an Email</a></div>
@@ -422,6 +497,22 @@ footer{background:#081219;color:#8fa0a7;padding:20px 0;font-size:.75rem}
     <span>Civil Engineer · Construction Estimator · Project Engineer</span>
   </div>
 </footer>
+
+
+<div id="reviewModal" class="review-modal" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle">
+  <div class="review-modal-card">
+    <div class="review-modal-header">
+      <h3 id="reviewModalTitle">Share Your Experience</h3>
+      <button class="review-modal-close" type="button" onclick="closeReviewModal()" aria-label="Close review form">&times;</button>
+    </div>
+    <iframe
+      class="review-form-frame"
+      title="Leave a review"
+      src="https://docs.google.com/forms/d/e/1FAIpQLSdEhIPJONkzfoF2QEuXsVlSibuIhg0Q3TnF6C0x4Iq1vsE7LQ/viewform?embedded=true">
+      Loading…
+    </iframe>
+  </div>
+</div>
 
 <div id="lightbox" class="lightbox-modal">
   <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
@@ -523,6 +614,129 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') changeLightboxSlide(-1);
   if (e.key === 'ArrowRight') changeLightboxSlide(1);
 });
+
+// Review form modal
+function openReviewModal() {
+  const modal = document.getElementById('reviewModal');
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeReviewModal() {
+  const modal = document.getElementById('reviewModal');
+  modal.classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+// Close review modal when clicking outside the form card or pressing Escape.
+document.getElementById('reviewModal')?.addEventListener('click', (e) => {
+  if (e.target.id === 'reviewModal') closeReviewModal();
+});
+
+// Google Sheet configuration for approved public reviews.
+const REVIEWS_SHEET_ID = '1BOzIGfB-je6sdp42ZJmprMme9gpFfC0KHxy1aeT1tx0';
+const REVIEWS_SHEET_GID = '0';
+
+async function loadApprovedReviews() {
+  const grid = document.getElementById('reviewGrid');
+  if (!grid) return;
+
+  try {
+    // gviz returns JSONP-like text; using the response body keeps this
+    // compatible with a static GitHub Pages site without a backend.
+    const url =
+      'https://docs.google.com/spreadsheets/d/' +
+      encodeURIComponent(REVIEWS_SHEET_ID) +
+      '/gviz/tq?tqx=out:json&gid=' +
+      encodeURIComponent(REVIEWS_SHEET_GID);
+
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Unable to read the review sheet.');
+
+    const text = await response.text();
+    const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);?$/);
+    if (!match) throw new Error('Unexpected Google Sheets response.');
+
+    const data = JSON.parse(match[1]);
+    const columns = (data.table?.cols || []).map(col =>
+      String(col.label || col.id || '').trim().toLowerCase()
+    );
+
+    const rows = data.table?.rows || [];
+
+    const findColumn = (...terms) => columns.findIndex(col =>
+      terms.some(term => col.includes(term))
+    );
+
+    const nameIndex = findColumn('name');
+    const roleIndex = findColumn('role', 'company');
+    const reviewIndex = findColumn('review', 'feedback', 'testimonial');
+    const approvedIndex = findColumn('approved');
+    const ratingIndex = findColumn('rating', 'star');
+
+    if (nameIndex < 0 || reviewIndex < 0 || approvedIndex < 0) {
+      throw new Error('Required review columns were not found.');
+    }
+
+    const approvedReviews = rows
+      .map(row => row.c || [])
+      .map(cells => ({
+        name: cells[nameIndex]?.v ?? '',
+        role: roleIndex >= 0 ? (cells[roleIndex]?.v ?? '') : '',
+        review: cells[reviewIndex]?.v ?? '',
+        approved: cells[approvedIndex]?.v,
+        rating: ratingIndex >= 0 ? (cells[ratingIndex]?.v ?? '') : ''
+      }))
+      .filter(item => {
+        const value = String(item.approved).trim().toLowerCase();
+        return value === 'true' || value === 'yes' || value === 'approved' || value === '1';
+      })
+      .filter(item => String(item.review).trim());
+
+    if (!approvedReviews.length) {
+      grid.innerHTML = '<div class="review-status">No reviews have been published yet. If we have worked together, you can be the first to leave one.</div>';
+      return;
+    }
+
+    grid.innerHTML = approvedReviews.map(item => {
+      const ratingNumber = Number(item.rating);
+      const stars = Number.isFinite(ratingNumber) && ratingNumber >= 1 && ratingNumber <= 5
+        ? '★'.repeat(Math.round(ratingNumber)) + '☆'.repeat(5 - Math.round(ratingNumber))
+        : '';
+
+      const name = escapeReviewHtml(String(item.name));
+      const role = escapeReviewHtml(String(item.role));
+      const review = escapeReviewHtml(String(item.review));
+
+      return `
+        <article class="review-card">
+          ${stars ? `<div class="review-stars" aria-label="${Math.round(ratingNumber)} out of 5 stars">${stars}</div>` : ''}
+          <p class="review-quote">“${review}”</p>
+          <div class="review-author">
+            <strong>${name || 'Anonymous'}</strong>
+            ${role ? `<span>${role}</span>` : ''}
+          </div>
+        </article>
+      `;
+    }).join('');
+  } catch (error) {
+    console.warn('Reviews could not be loaded:', error);
+    grid.innerHTML = '<div class="review-status">Reviews are temporarily unavailable. Please check back later.</div>';
+  }
+}
+
+function escapeReviewHtml(value) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+    .replace(/\n/g, '<br>');
+}
+
+document.addEventListener('DOMContentLoaded', loadApprovedReviews);
+
 </script>
 </body>
 </html>
