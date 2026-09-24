@@ -628,6 +628,209 @@ h2{
 }
 
 /* =========================
+   PROOF OF WORK — MULTI-FILE ARCHITECTURE
+========================= */
+
+.proof-note{
+  max-width:850px;
+  color:var(--muted);
+  font-size:.84rem;
+  line-height:1.7;
+  border-left:3px solid var(--accent);
+  padding-left:14px;
+  margin:-20px 0 28px;
+}
+
+.proof-filters{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:28px;
+}
+
+.proof-filter{
+  border:1px solid var(--line);
+  background:#fff;
+  color:#506069;
+  padding:10px 14px;
+  font:inherit;
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.proof-filter:hover,
+.proof-filter.active{
+  background:var(--ink);
+  border-color:var(--ink);
+  color:#fff;
+}
+
+.proof-card{
+  min-height:235px;
+}
+
+.proof-card .sample-meta{
+  margin-top:14px;
+}
+
+.proof-card-actions{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-top:16px;
+}
+
+.proof-count{
+  font-size:.72rem;
+  color:var(--muted);
+  font-weight:700;
+}
+
+.proof-open{
+  border:0;
+  background:none;
+  padding:0;
+  margin:0;
+  color:var(--accent);
+  font:inherit;
+  font-size:.78rem;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+
+.proof-open:hover{
+  text-decoration:underline;
+}
+
+.proof-empty{
+  color:var(--muted);
+  font-size:.78rem;
+}
+
+.proof-files-modal{
+  display:none;
+  position:fixed;
+  z-index:1150;
+  inset:0;
+  background:rgba(13,27,34,.82);
+  backdrop-filter:blur(8px);
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.proof-files-modal.active{
+  display:flex;
+}
+
+.proof-files-card{
+  width:min(720px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  box-shadow:var(--shadow);
+}
+
+.proof-files-header{
+  position:sticky;
+  top:0;
+  z-index:2;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  padding:20px 24px;
+  border-bottom:1px solid var(--line);
+  background:var(--paper);
+}
+
+.proof-files-header h3{
+  font-size:1.25rem;
+  margin-bottom:3px;
+}
+
+.proof-files-header p{
+  color:var(--muted);
+  font-size:.8rem;
+}
+
+.proof-files-close{
+  flex:0 0 auto;
+  border:0;
+  background:none;
+  color:var(--ink);
+  font-size:30px;
+  line-height:1;
+  cursor:pointer;
+  padding:0 2px;
+}
+
+.proof-file-list{
+  padding:10px 24px 24px;
+}
+
+.proof-file{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.proof-file:last-child{
+  border-bottom:0;
+}
+
+.proof-file-info{
+  min-width:0;
+}
+
+.proof-file-name{
+  display:block;
+  font-weight:800;
+  font-size:.92rem;
+  overflow-wrap:anywhere;
+}
+
+.proof-file-meta{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:.75rem;
+}
+
+.proof-file-link{
+  flex:0 0 auto;
+  border:1px solid var(--ink);
+  background:var(--ink);
+  color:#fff;
+  padding:10px 13px;
+  font-size:.7rem;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.proof-file-link:hover{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+
+.proof-no-files{
+  padding:20px 0 4px;
+  color:var(--muted);
+  font-size:.85rem;
+}
+
+/* =========================
    REVIEWS
 ========================= */
 
@@ -1124,6 +1327,26 @@ footer{
 
   .review-btn{
     width:100%;
+  }
+}
+
+@media(max-width:768px){
+  .proof-file{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .proof-file-link{
+    width:100%;
+    text-align:center;
+  }
+
+  .proof-files-header{
+    padding:18px 20px;
+  }
+
+  .proof-file-list{
+    padding:8px 20px 20px;
   }
 }
 
@@ -1756,130 +1979,116 @@ footer{
 
     <div class="proof-filters" role="tablist" aria-label="Filter proof of work">
       <button class="proof-filter active" type="button" data-filter="all" aria-selected="true" onclick="filterProof('all',this)">All</button>
-      <button class="proof-filter" type="button" data-filter="estimating" onclick="filterProof('estimating',this)">Estimating</button>
-      <button class="proof-filter" type="button" data-filter="steel" onclick="filterProof('steel',this)">Steel & Optimization</button>
-      <button class="proof-filter" type="button" data-filter="technical" onclick="filterProof('technical',this)">Technical</button>
-      <button class="proof-filter" type="button" data-filter="controls" onclick="filterProof('controls',this)">Project Controls</button>
+      <button class="proof-filter" type="button" data-filter="estimating" aria-selected="false" onclick="filterProof('estimating',this)">Estimating</button>
+      <button class="proof-filter" type="button" data-filter="steel" aria-selected="false" onclick="filterProof('steel',this)">Steel & Optimization</button>
+      <button class="proof-filter" type="button" data-filter="technical" aria-selected="false" onclick="filterProof('technical',this)">Technical</button>
+      <button class="proof-filter" type="button" data-filter="controls" aria-selected="false" onclick="filterProof('controls',this)">Project Controls</button>
     </div>
 
-    <div class="sample-grid" id="proofGrid">
-
-      <article class="sample-card proof-card featured" data-category="estimating">
-        <div class="sample-num">01</div>
-        <h3>Bill of Quantities — Redacted Sample</h3>
-        <p>Multi-trade BOQ covering site, structural, architectural, plumbing and electrical works, with unit costs, weighted percentages and cost breakdowns.</p>
-        <div class="sample-meta">PDF · 13 pages</div>
-        <a class="sample-link" href="samples/BOQ_Sample_Redacted.pdf" target="_blank" rel="noopener">View PDF Sample →</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="estimating">
-        <div class="sample-num">02</div>
-        <h3>Cost Estimate — Redacted Sample</h3>
-        <p>Estimate presentation demonstrating the transition from measured quantities into project pricing and cost information.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="estimating">
-        <div class="sample-num">03</div>
-        <h3>Tender Summary — Redacted Sample</h3>
-        <p>Commercial summary showing how tender or quotation information can be organized for comparison, review and project decision support.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="estimating">
-        <div class="sample-num">04</div>
-        <h3>UK Joinery Estimating</h3>
-        <p>Drawing and specification review, quantity takeoff, pricing calculations, estimate preparation and quotation records for bespoke windows and doors.</p>
-        <div class="tags"><span class="tag">QTO</span><span class="tag">Pricing</span><span class="tag">Quotations</span></div>
-      </article>
-
-      <article class="sample-card proof-card" data-category="steel">
-        <div class="sample-num">05</div>
-        <h3>Steel Quantity Takeoff</h3>
-        <p>Steel estimating workflow covering drawing review, member quantities, material requirements and organized takeoff information.</p>
-        <div class="sample-meta">Portfolio sample · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="steel">
-        <div class="sample-num">06</div>
-        <h3>Steel / Rebar Cutting Scheme</h3>
-        <p>Cutting-plan presentation showing commercial stock lengths, required pieces, cutting arrangements and material utilization.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="steel">
-        <div class="sample-num">07</div>
-        <h3>Material Schedule / MTO</h3>
-        <p>Structured material requirements supporting procurement, fabrication planning and construction execution.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="technical">
-        <div class="sample-num">08</div>
-        <h3>RFI / RFA</h3>
-        <p>Technical coordination sample showing an issue or submission, relevant drawing reference, query, proposed resolution and response/status.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="technical">
-        <div class="sample-num">09</div>
-        <h3>Method Statement / ITP</h3>
-        <p>Construction methodology and inspection documentation demonstrating work sequence, inspection points and acceptance requirements.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="technical">
-        <div class="sample-num">10</div>
-        <h3>NCR / Technical Documentation</h3>
-        <p>Quality and technical documentation showing issue identification, corrective action, references and project closeout records.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="controls">
-        <div class="sample-num">11</div>
-        <h3>Progress Report</h3>
-        <p>Project reporting covering completed work, progress information, manpower, equipment, materials, issues and lookahead where applicable.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="controls">
-        <div class="sample-num">12</div>
-        <h3>Supplier / Tender Comparison</h3>
-        <p>Commercial comparison format for organizing supplier or subcontractor quotations, scope differences and pricing information.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="controls">
-        <div class="sample-num">13</div>
-        <h3>Progress Billing / Cost Tracking</h3>
-        <p>Project control documentation demonstrating quantity verification, completed work, billing support and cost monitoring.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-      <article class="sample-card proof-card" data-category="controls">
-        <div class="sample-num">14</div>
-        <h3>Contract / Award Documentation</h3>
-        <p>Sanitized commercial documentation showing scope, package, duration, inclusions/exclusions and relevant award information where appropriate.</p>
-        <div class="sample-meta">PDF · Add when approved</div>
-        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
-      </article>
-
-    </div>
+    <!--
+      Proof of Work is now data-driven.
+      Each category can contain ANY number of files.
+      Add another object inside the files array when you upload a new sample.
+    -->
+    <div class="sample-grid" id="proofGrid"></div>
 
   </div>
 
 </section>
+
+<!-- =========================
+     PROOF FILE MODAL
+========================= -->
+
+<div class="proof-files-modal" id="proofFilesModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="proofFilesTitle">
+  <div class="proof-files-card">
+    <div class="proof-files-header">
+      <div>
+        <h3 id="proofFilesTitle">Proof of Work</h3>
+        <p id="proofFilesSubtitle"></p>
+      </div>
+      <button class="proof-files-close" type="button" onclick="closeProofFilesModal()" aria-label="Close proof of work files">&times;</button>
+    </div>
+    <div class="proof-file-list" id="proofFileList"></div>
+  </div>
+</div>
+
+<!-- =========================
+     PDF VIEWER MODAL
+========================= -->
+
+<div class="pdf-viewer-modal" id="pdfViewerModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdfViewerTitle">
+  <div class="pdf-viewer-card">
+    <div class="pdf-viewer-header">
+      <div>
+        <div class="eyebrow">Document Preview</div>
+        <h3 id="pdfViewerTitle">PDF Preview</h3>
+      </div>
+      <div class="pdf-viewer-actions">
+        <a class="pdf-viewer-external" id="pdfViewerExternal" href="#" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
+        <button class="proof-files-close" type="button" onclick="closePdfViewer()" aria-label="Close PDF preview">&times;</button>
+      </div>
+    </div>
+    <div class="pdf-viewer-body">
+      <iframe id="pdfViewerFrame" title="PDF document preview" src="about:blank"></iframe>
+    </div>
+  </div>
+</div>
+
+
+/* =========================
+   PDF VIEWER
+========================= */
+
+.pdf-viewer-modal{
+  display:none;
+  position:fixed;
+  z-index:1200;
+  inset:0;
+  background:rgba(13,27,34,.88);
+  backdrop-filter:blur(8px);
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.pdf-viewer-modal.active{display:flex;}
+
+.pdf-viewer-card{
+  width:min(1200px,100%);
+  height:min(900px,94vh);
+  background:#fff;
+  border:1px solid var(--line);
+  box-shadow:0 30px 90px rgba(0,0,0,.28);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.pdf-viewer-header{
+  min-height:72px;
+  padding:14px 18px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.pdf-viewer-header .eyebrow{margin:0 0 3px;font-size:.62rem;}
+.pdf-viewer-header h3{margin:0;font-size:1rem;}
+.pdf-viewer-actions{display:flex;align-items:center;gap:14px;}
+.pdf-viewer-external{color:var(--accent);text-decoration:none;font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;}
+.pdf-viewer-external:hover{text-decoration:underline;}
+.pdf-viewer-body{flex:1;min-height:0;background:#e9edf0;}
+.pdf-viewer-body iframe{display:block;width:100%;height:100%;border:0;background:#fff;}
+
+@media(max-width:700px){
+  .pdf-viewer-modal{padding:0;}
+  .pdf-viewer-card{width:100%;height:100%;}
+  .pdf-viewer-header{min-height:64px;padding:12px 14px;}
+  .pdf-viewer-external{display:none;}
+}
 
 <!-- =========================
      TECHNICAL TOOLS
@@ -1932,7 +2141,7 @@ footer{
     <div class="section-head">
 
       <div>
-        <div class="eyebrow">08 — Reviews</div>
+        <div class="eyebrow">07 — Reviews</div>
         <h2>What people say.</h2>
       </div>
 
@@ -1976,7 +2185,7 @@ footer{
     <div class="section-head">
 
       <div>
-        <div class="eyebrow">07 — Technical Profile</div>
+        <div class="eyebrow">08 — Technical Profile</div>
         <h2>Built for detail.<br>Focused on delivery.</h2>
       </div>
 
@@ -2152,7 +2361,7 @@ footer{
     <div>
 
       <div class="eyebrow">
-        08 — Contact
+        10 — Contact
       </div>
 
       <h2>
@@ -2606,40 +2815,306 @@ function changeLightboxSlide(direction){
 
 
 /* =========================================================
-   PROOF OF WORK FILTER
+   PROOF OF WORK — DATA + MULTI-FILE RENDERING
 ========================================================= */
+
+/*
+  ADDING A NEW FILE:
+
+  1. Upload the PDF into the correct folder, for example:
+     samples/boq/BOQ_Sample_02_Redacted.pdf
+
+  2. Add one object to the relevant `files` array below:
+
+     {
+       name: 'BOQ Sample 02',
+       path: 'samples/boq/BOQ_Sample_02_Redacted.pdf',
+       meta: 'PDF · 8 pages'
+     }
+
+  You do NOT need to create another card in the HTML.
+*/
+
+const proofOfWork = [
+  {
+    id:'boq',
+    number:'01',
+    category:'estimating',
+    title:'Bill of Quantities',
+    description:'Multi-trade BOQ covering site, structural, architectural, plumbing and electrical works, with unit costs, weighted percentages and cost breakdowns.',
+    tags:['QTO','BOQ','Cost Breakdown'],
+    files:[
+      {
+        name:'BOQ Sample — Redacted',
+        path:'samples/BOQ_Sample_Redacted.pdf',
+        meta:'PDF · 13 pages'
+      }
+    ]
+  },
+  {
+    id:'cost-estimate',
+    number:'02',
+    category:'estimating',
+    title:'Cost Estimate',
+    description:'Estimate presentation demonstrating the transition from measured quantities into project pricing and cost information.',
+    tags:['Estimating','Pricing'],
+    files:[]
+  },
+  {
+    id:'tender-summary',
+    number:'03',
+    category:'estimating',
+    title:'Tender Summary',
+    description:'Commercial summary showing how tender or quotation information can be organized for comparison, review and project decision support.',
+    tags:['Tender','Commercial'],
+    files:[]
+  },
+  {
+    id:'uk-joinery',
+    number:'04',
+    category:'estimating',
+    title:'UK Joinery Estimating',
+    description:'Drawing and specification review, quantity takeoff, pricing calculations, estimate preparation and quotation records for bespoke windows and doors.',
+    tags:['QTO','Pricing','Quotations'],
+    files:[]
+  },
+  {
+    id:'steel-qto',
+    number:'05',
+    category:'steel',
+    title:'Steel Quantity Takeoff',
+    description:'Steel estimating workflow covering drawing review, member quantities, material requirements and organized takeoff information.',
+    tags:['Steel','QTO','Fabrication'],
+    files:[]
+  },
+  {
+    id:'cutting',
+    number:'06',
+    category:'steel',
+    title:'Steel / Rebar Cutting Scheme',
+    description:'Cutting-plan presentation showing commercial stock lengths, required pieces, cutting arrangements and material utilization.',
+    tags:['Cutting','Optimization','Waste'],
+    files:[]
+  },
+  {
+    id:'material-schedule',
+    number:'07',
+    category:'steel',
+    title:'Material Schedule / MTO',
+    description:'Structured material requirements supporting procurement, fabrication planning and construction execution.',
+    tags:['MTO','Materials','Procurement'],
+    files:[]
+  },
+  {
+    id:'rfi-rfa',
+    number:'08',
+    category:'technical',
+    title:'RFI / RFA',
+    description:'Technical coordination sample showing an issue or submission, relevant drawing reference, query, proposed resolution and response/status.',
+    tags:['RFI','RFA','Coordination'],
+    files:[]
+  },
+  {
+    id:'method-statement',
+    number:'09',
+    category:'technical',
+    title:'Method Statement / ITP',
+    description:'Construction methodology and inspection documentation demonstrating work sequence, inspection points and acceptance requirements.',
+    tags:['Method Statement','ITP','QA/QC'],
+    files:[]
+  },
+  {
+    id:'ncr',
+    number:'10',
+    category:'technical',
+    title:'NCR / Technical Documentation',
+    description:'Quality and technical documentation showing issue identification, corrective action, references and project closeout records.',
+    tags:['NCR','Quality','Closeout'],
+    files:[]
+  },
+  {
+    id:'progress-report',
+    number:'11',
+    category:'controls',
+    title:'Progress Report',
+    description:'Project reporting covering completed work, progress information, manpower, equipment, materials, issues and lookahead where applicable.',
+    tags:['Progress','Reporting','Lookahead'],
+    files:[]
+  },
+  {
+    id:'supplier-comparison',
+    number:'12',
+    category:'controls',
+    title:'Supplier / Tender Comparison',
+    description:'Commercial comparison format for organizing supplier or subcontractor quotations, scope differences and pricing information.',
+    tags:['Comparison','Suppliers','Tender'],
+    files:[]
+  },
+  {
+    id:'progress-billing',
+    number:'13',
+    category:'controls',
+    title:'Progress Billing / Cost Tracking',
+    description:'Project control documentation demonstrating quantity verification, completed work, billing support and cost monitoring.',
+    tags:['Billing','Cost Tracking','QTO'],
+    files:[]
+  },
+  {
+    id:'contract-award',
+    number:'14',
+    category:'controls',
+    title:'Contract / Award Documentation',
+    description:'Sanitized commercial documentation showing scope, package, duration, inclusions/exclusions and relevant award information where appropriate.',
+    tags:['Contract','Award','Commercial'],
+    files:[]
+  }
+];
+
+function renderProofOfWork(category='all'){
+
+  const grid = document.getElementById('proofGrid');
+  if(!grid) return;
+
+  const items = proofOfWork.filter(item =>
+    category === 'all' || item.category === category
+  );
+
+  grid.innerHTML = items.map(item => {
+
+    const fileCount = item.files.length;
+    const hasFiles = fileCount > 0;
+    const countLabel = fileCount === 1 ? '1 sample' : `${fileCount} samples`;
+
+    const action = hasFiles
+      ? `<div class="proof-card-actions">
+           <span class="proof-count">${countLabel}</span>
+           <button class="proof-open" type="button" onclick="openProofFilesModal('${item.id}')">View samples →</button>
+         </div>`
+      : `<div class="proof-card-actions">
+           <span class="proof-empty">Public sample not uploaded yet</span>
+         </div>`;
+
+    const tags = item.tags?.length
+      ? `<div class="tags">${item.tags.map(tag => `<span class="tag">${escapeProofText(tag)}</span>`).join('')}</div>`
+      : '';
+
+    return `
+      <article class="sample-card proof-card" data-category="${item.category}">
+        <div class="sample-num">${item.number}</div>
+        <h3>${escapeProofText(item.title)}</h3>
+        <p>${escapeProofText(item.description)}</p>
+        ${tags}
+        ${action}
+      </article>
+    `;
+
+  }).join('');
+}
 
 function filterProof(category,button){
 
-  const cards =
-    document.querySelectorAll('.proof-card');
-
-  const buttons =
-    document.querySelectorAll('.proof-filter');
-
-  buttons.forEach(item => {
-    item.classList.remove('active');
-    item.setAttribute('aria-selected','false');
+  document.querySelectorAll('.proof-filter').forEach(item => {
+    const active = item === button;
+    item.classList.toggle('active',active);
+    item.setAttribute('aria-selected',String(active));
   });
 
-  if(button){
-    button.classList.add('active');
-    button.setAttribute('aria-selected','true');
-  }
+  renderProofOfWork(category);
+}
 
-  cards.forEach(card => {
+function openProofFilesModal(id){
 
-    const cardCategory =
-      card.getAttribute('data-category');
+  const item = proofOfWork.find(entry => entry.id === id);
+  if(!item) return;
 
-    const show =
-      category === 'all' ||
-      cardCategory === category;
+  const modal = document.getElementById('proofFilesModal');
+  const title = document.getElementById('proofFilesTitle');
+  const subtitle = document.getElementById('proofFilesSubtitle');
+  const list = document.getElementById('proofFileList');
 
-    card.hidden = !show;
+  title.textContent = item.title;
+  subtitle.textContent = `${item.files.length} ${item.files.length === 1 ? 'sample' : 'samples'} available`;
 
-  });
+  list.innerHTML = item.files.length
+    ? item.files.map(file => `
+        <div class="proof-file">
+          <div class="proof-file-info">
+            <span class="proof-file-name">${escapeProofText(file.name)}</span>
+            <span class="proof-file-meta">${escapeProofText(file.meta || 'Document')}</span>
+          </div>
+          <button class="proof-file-link" type="button" onclick="openPdfViewer('${escapeProofAttribute(file.path)}','${escapeProofAttribute(file.name)}')">Open PDF →</button>
+        </div>
+      `).join('')
+    : '<div class="proof-no-files">No public sample has been uploaded for this category yet.</div>';
 
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+
+function openPdfViewer(path,name){
+
+  const modal = document.getElementById('pdfViewerModal');
+  const frame = document.getElementById('pdfViewerFrame');
+  const title = document.getElementById('pdfViewerTitle');
+  const external = document.getElementById('pdfViewerExternal');
+
+  if(!modal || !frame || !title || !external) return;
+
+  const safePath = String(path);
+  const pdfUrl = safePath + (safePath.includes('#') ? '&' : '#') + 'toolbar=1&navpanes=0&view=FitH';
+
+  title.textContent = name || 'PDF Preview';
+  frame.src = pdfUrl;
+  external.href = safePath;
+
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+}
+
+function closePdfViewer(){
+
+  const modal = document.getElementById('pdfViewerModal');
+  const frame = document.getElementById('pdfViewerFrame');
+
+  if(!modal) return;
+
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden','true');
+  if(frame) frame.src='about:blank';
+
+  // The proof-files modal remains open underneath the PDF viewer.
+  document.body.style.overflow='hidden';
+}
+
+
+function closeProofFilesModal(){
+
+  const modal = document.getElementById('proofFilesModal');
+  if(!modal) return;
+
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow='auto';
+}
+
+function escapeProofText(value){
+  return String(value)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+}
+
+function escapeProofAttribute(value){
+  return String(value)
+    .replace(/&/g,'%26')
+    .replace(/"/g,'%22')
+    .replace(/</g,'%3C')
+    .replace(/>/g,'%3E')
+    .replace(/'/g,'%27');
 }
 
 
@@ -3204,6 +3679,12 @@ document.addEventListener(
       });
 
     /*
+      Render the data-driven Proof of Work library.
+    */
+
+    renderProofOfWork('all');
+
+    /*
       Load approved reviews from Google Apps Script.
     */
 
@@ -3212,6 +3693,18 @@ document.addEventListener(
   }
 );
 
+
+document.getElementById('proofFilesModal')?.addEventListener('click',event => {
+  if(event.target.id === 'proofFilesModal'){
+    closeProofFilesModal();
+  }
+});
+
+document.getElementById('pdfViewerModal')?.addEventListener('click',event => {
+  if(event.target.id === 'pdfViewerModal'){
+    closePdfViewer();
+  }
+});
 
 /* =========================================================
    KEYBOARD CONTROLS
@@ -3229,6 +3722,8 @@ document.addEventListener(
 
       closeLightbox();
       closeReviewModal();
+      closePdfViewer();
+      closeProofFilesModal();
 
     }
 
