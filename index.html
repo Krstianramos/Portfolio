@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <meta name="description" content="John Kristian A. Ramos, RCE — Civil Engineer, Construction Estimator and Project Engineer specializing in quantity takeoffs, BOQs, cost estimation, steel estimating, project documentation and project coordination.">
 <meta name="author" content="John Kristian A. Ramos">
+
 <title>John Kristian A. Ramos, RCE | Civil Engineer & Construction Estimator</title>
 
 <style>
@@ -28,6 +30,7 @@
 
 html{
   scroll-behavior:smooth;
+  scroll-padding-top:90px;
 }
 
 body{
@@ -38,9 +41,19 @@ body{
   overflow-x:hidden;
 }
 
+body.modal-open{
+  overflow:hidden;
+}
+
 a{
   color:inherit;
   text-decoration:none;
+}
+
+button,
+input,
+textarea{
+  font-family:inherit;
 }
 
 img{
@@ -52,6 +65,14 @@ img{
 .container{
   width:min(var(--max),92%);
   margin:auto;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
 }
 
 /* =========================
@@ -94,12 +115,20 @@ nav{
   color:#42535c;
 }
 
+.nav-links a{
+  transition:color .2s ease;
+}
+
 .nav-links a:hover{
   color:var(--accent);
 }
 
 .menu-toggle{
   display:none;
+  width:42px;
+  height:42px;
+  align-items:center;
+  justify-content:center;
   background:none;
   border:none;
   font-size:1.5rem;
@@ -176,6 +205,7 @@ h1{
   text-transform:uppercase;
   text-align:center;
   transition:.2s;
+  cursor:pointer;
 }
 
 .btn.primary{
@@ -370,18 +400,6 @@ h2{
   background:#243741;
 }
 
-.project-visual-bg{
-  width:100%;
-  height:auto;
-  display:block;
-  transition:transform .3s ease;
-  cursor:zoom-in;
-}
-
-.project:hover .project-visual-bg{
-  transform:scale(1.02);
-}
-
 /* =========================
    SLIDER
 ========================= */
@@ -415,11 +433,16 @@ h2{
   transform:translateY(-50%);
   background:rgba(13,27,34,.7);
   color:#fff;
-  border:none;
+  border:1px solid rgba(255,255,255,.15);
   font-size:1.2rem;
   padding:12px 16px;
   cursor:pointer;
   z-index:5;
+  transition:background .2s ease;
+}
+
+.slider-btn:hover{
+  background:rgba(13,27,34,.92);
 }
 
 .slider-btn.prev{
@@ -441,21 +464,49 @@ h2{
 }
 
 .dot{
+  width:18px;
+  height:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  padding:0;
+}
+
+.dot::after{
+  content:"";
   width:8px;
   height:8px;
   border-radius:50%;
   background:rgba(255,255,255,.5);
-  cursor:pointer;
+  transition:.2s;
 }
 
-.dot.active{
-  background:var(--accent);
+.dot.active::after{
   width:18px;
   border-radius:4px;
+  background:var(--accent);
+}
+
+.slider-counter{
+  position:absolute;
+  top:10px;
+  right:10px;
+  z-index:5;
+  background:rgba(13,27,34,.72);
+  color:#fff;
+  padding:5px 9px;
+  font-size:.68rem;
+  font-weight:800;
+  letter-spacing:.05em;
+  backdrop-filter:blur(4px);
 }
 
 .project-slider.single-photo .slider-btn,
-.project-slider.single-photo .slider-dots{
+.project-slider.single-photo .slider-dots,
+.project-slider.single-photo .slider-counter{
   display:none;
 }
 
@@ -467,10 +518,7 @@ h2{
   display:none;
   position:fixed;
   z-index:1000;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  inset:0;
   background-color:rgba(13,27,34,.95);
   backdrop-filter:blur(8px);
   justify-content:center;
@@ -492,14 +540,25 @@ h2{
 
 .lightbox-close{
   position:absolute;
-  top:15px;
+  top:16px;
   right:20px;
+  width:46px;
+  height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   color:#fff;
-  font-size:35px;
-  font-weight:bold;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.2);
+  font-size:30px;
+  line-height:1;
   cursor:pointer;
   z-index:1001;
-  padding:10px;
+  transition:.2s;
+}
+
+.lightbox-close:hover{
+  background:rgba(255,255,255,.18);
 }
 
 .lightbox-btn{
@@ -514,6 +573,11 @@ h2{
   cursor:pointer;
   user-select:none;
   z-index:1001;
+  transition:.2s;
+}
+
+.lightbox-btn:hover{
+  background:rgba(255,255,255,.25);
 }
 
 .lightbox-btn.prev{
@@ -560,7 +624,7 @@ h2{
 }
 
 /* =========================
-   SAMPLES
+   PROOF OF WORK
 ========================= */
 
 .samples{
@@ -627,10 +691,6 @@ h2{
   text-decoration:underline;
 }
 
-/* =========================
-   PROOF OF WORK — MULTI-FILE ARCHITECTURE
-========================= */
-
 .proof-note{
   max-width:850px;
   color:var(--muted);
@@ -670,7 +730,11 @@ h2{
 }
 
 .proof-card{
-  min-height:235px;
+  min-height:250px;
+}
+
+.proof-card .tags{
+  margin-top:18px;
 }
 
 .proof-card .sample-meta{
@@ -682,7 +746,8 @@ h2{
   align-items:center;
   justify-content:space-between;
   gap:12px;
-  margin-top:16px;
+  margin-top:auto;
+  padding-top:18px;
 }
 
 .proof-count{
@@ -763,13 +828,17 @@ h2{
 
 .proof-files-close{
   flex:0 0 auto;
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   border:0;
   background:none;
   color:var(--ink);
   font-size:30px;
   line-height:1;
   cursor:pointer;
-  padding:0 2px;
 }
 
 .proof-file-list{
@@ -817,6 +886,7 @@ h2{
   font-weight:800;
   letter-spacing:.06em;
   text-transform:uppercase;
+  transition:.2s;
 }
 
 .proof-file-link:hover{
@@ -967,6 +1037,11 @@ h2{
 }
 
 .review-modal-close{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   border:0;
   background:none;
   font-size:30px;
@@ -1028,6 +1103,22 @@ h2{
 
 .review-required{
   color:var(--accent);
+}
+
+.review-rating-fieldset{
+  border:0;
+  padding:0;
+  margin:0;
+}
+
+.review-rating-legend{
+  display:block;
+  font-size:.76rem;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin-bottom:7px;
+  color:var(--ink);
 }
 
 .review-rating{
@@ -1109,7 +1200,7 @@ h2{
 }
 
 /* =========================
-   EXPERTISE
+   TECHNICAL PROFILE
 ========================= */
 
 .expertise{
@@ -1149,6 +1240,10 @@ h2{
 .job{
   padding:0 0 35px 25px;
   position:relative;
+}
+
+.job:last-child{
+  padding-bottom:0;
 }
 
 .job:before{
@@ -1283,12 +1378,13 @@ footer{
     flex-direction:column;
     align-items:flex-start;
   }
+
 }
 
 @media(max-width:768px){
 
   .menu-toggle{
-    display:block;
+    display:flex;
   }
 
   .nav-links{
@@ -1313,10 +1409,7 @@ footer{
     border-top:1px solid var(--line);
   }
 
-  .project-grid{
-    grid-template-columns:1fr;
-  }
-
+  .project-grid,
   .review-grid{
     grid-template-columns:1fr;
   }
@@ -1328,9 +1421,7 @@ footer{
   .review-btn{
     width:100%;
   }
-}
 
-@media(max-width:768px){
   .proof-file{
     align-items:flex-start;
     flex-direction:column;
@@ -1348,6 +1439,7 @@ footer{
   .proof-file-list{
     padding:8px 20px 20px;
   }
+
 }
 
 @media(max-width:480px){
@@ -1373,10 +1465,7 @@ footer{
     grid-template-columns:1fr;
   }
 
-  .service-grid{
-    grid-template-columns:1fr;
-  }
-
+  .service-grid,
   .sample-grid{
     grid-template-columns:1fr;
   }
@@ -1386,6 +1475,11 @@ footer{
     font-size:1.2rem;
   }
 
+  .lightbox-content{
+    max-width:92%;
+    max-height:72vh;
+  }
+
   .review-modal{
     padding:10px;
   }
@@ -1393,6 +1487,28 @@ footer{
   .review-form{
     padding:20px;
   }
+
+}
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+  html{
+    scroll-behavior:auto;
+  }
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+
 }
 </style>
 </head>
@@ -1410,25 +1526,40 @@ footer{
 
     <button
       class="menu-toggle"
+      type="button"
       onclick="toggleMenu()"
-      aria-label="Toggle navigation">
+      aria-label="Toggle navigation"
+      aria-expanded="false"
+      aria-controls="navLinks">
       ☰
     </button>
 
     <div class="nav-links" id="navLinks">
+
       <a href="#about" onclick="closeMenu()">About</a>
-      <a href="#services" onclick="closeMenu()">Expertise</a>
+
       <a href="#how-i-work" onclick="closeMenu()">How I Work</a>
+
+      <a href="#services" onclick="closeMenu()">Expertise</a>
+
       <a href="#projects" onclick="closeMenu()">Projects</a>
+
       <a href="#proof" onclick="closeMenu()">Proof of Work</a>
+
       <a href="#tools" onclick="closeMenu()">Tools</a>
-      <a href="#experience" onclick="closeMenu()">Experience</a>
+
       <a href="#reviews" onclick="closeMenu()">Reviews</a>
+
+      <a href="#experience" onclick="closeMenu()">Experience</a>
+
       <a href="#contact" onclick="closeMenu()">Contact</a>
+
     </div>
 
   </div>
 </nav>
+
+<main>
 
 <!-- =========================
      HERO
@@ -1453,13 +1584,15 @@ footer{
       </p>
 
       <div class="actions">
+
         <a class="btn primary" href="#proof">
           View Proof of Work
         </a>
 
         <a class="btn" href="#contact">
-          Let's Work Together
+          Discuss a Project
         </a>
+
       </div>
 
     </div>
@@ -1467,6 +1600,7 @@ footer{
     <aside class="hero-card">
 
       <div class="hero-photo-wrapper">
+
         <img
           src="images/headshot.webp"
           alt="John Kristian A. Ramos, RCE"
@@ -1474,6 +1608,7 @@ footer{
           decoding="async"
           fetchpriority="high"
           onerror="this.style.display='none'">
+
       </div>
 
       <div class="number">3+</div>
@@ -1507,8 +1642,13 @@ footer{
     <div class="section-head">
 
       <div>
+
         <div class="eyebrow">01 — About</div>
-        <h2>Engineering with a commercial mindset.</h2>
+
+        <h2>
+          Engineering with a commercial mindset.
+        </h2>
+
       </div>
 
       <p class="section-intro">
@@ -1573,22 +1713,73 @@ footer{
   <div class="container">
 
     <div class="section-head">
+
       <div>
+
         <div class="eyebrow">02 — How I Work</div>
-        <h2>From drawings to project control.</h2>
+
+        <h2>
+          From drawings to project control.
+        </h2>
+
       </div>
+
       <p class="section-intro">
         A practical workflow connecting technical drawings, quantities, pricing, procurement and project execution.
       </p>
+
     </div>
 
     <div class="service-grid">
-      <article class="service"><div class="service-num">01</div><h3>Drawings & Specifications</h3><p>Review drawings, specifications and project requirements to establish scope, assumptions and measurable work items.</p></article>
-      <article class="service"><div class="service-num">02</div><h3>Quantity Takeoff</h3><p>Extract quantities for civil, architectural, structural, steel, rebar and related construction works.</p></article>
-      <article class="service"><div class="service-num">03</div><h3>BOQ / MTO</h3><p>Organize measurements into structured Bills of Quantities, material schedules and work packages.</p></article>
-      <article class="service"><div class="service-num">04</div><h3>Pricing & Estimate</h3><p>Build cost estimates and quotations using available supplier, subcontractor and project pricing information.</p></article>
-      <article class="service"><div class="service-num">05</div><h3>Procurement / Award</h3><p>Support procurement comparisons, commercial documentation and contract or award documentation as applicable to the project.</p></article>
-      <article class="service"><div class="service-num">06</div><h3>Progress & Cost Control</h3><p>Track quantities, progress, documentation and project costs through execution and reporting.</p></article>
+
+      <article class="service">
+        <div class="service-num">01</div>
+        <h3>Drawings & Specifications</h3>
+        <p>
+          Review drawings, specifications and project requirements to establish scope, assumptions and measurable work items.
+        </p>
+      </article>
+
+      <article class="service">
+        <div class="service-num">02</div>
+        <h3>Quantity Takeoff</h3>
+        <p>
+          Extract quantities for civil, architectural, structural, steel, rebar and related construction works.
+        </p>
+      </article>
+
+      <article class="service">
+        <div class="service-num">03</div>
+        <h3>BOQ / MTO</h3>
+        <p>
+          Organize measurements into structured Bills of Quantities, material schedules and work packages.
+        </p>
+      </article>
+
+      <article class="service">
+        <div class="service-num">04</div>
+        <h3>Pricing & Estimate</h3>
+        <p>
+          Build cost estimates and quotations using available supplier, subcontractor and project pricing information.
+        </p>
+      </article>
+
+      <article class="service">
+        <div class="service-num">05</div>
+        <h3>Procurement / Award</h3>
+        <p>
+          Support procurement comparisons, commercial documentation and contract or award documentation as applicable to the project.
+        </p>
+      </article>
+
+      <article class="service">
+        <div class="service-num">06</div>
+        <h3>Progress & Cost Control</h3>
+        <p>
+          Track quantities, progress, documentation and project costs through execution and reporting.
+        </p>
+      </article>
+
     </div>
 
   </div>
@@ -1606,8 +1797,13 @@ footer{
     <div class="section-head">
 
       <div>
+
         <div class="eyebrow">03 — Expertise</div>
-        <h2>What I do.</h2>
+
+        <h2>
+          What I do.
+        </h2>
+
       </div>
 
       <p class="section-intro">
@@ -1619,51 +1815,75 @@ footer{
     <div class="service-grid">
 
       <article class="service">
+
         <div class="service-num">01</div>
+
         <h3>Quantity Takeoffs</h3>
+
         <p>
           Measurement and extraction of construction quantities from drawings, specifications and project information.
         </p>
+
       </article>
 
       <article class="service">
+
         <div class="service-num">02</div>
+
         <h3>BOQ Preparation</h3>
+
         <p>
           Structured Bills of Quantities and material schedules supporting procurement, pricing and project control.
         </p>
+
       </article>
 
       <article class="service">
+
         <div class="service-num">03</div>
+
         <h3>Cost Estimation</h3>
+
         <p>
           Project costing, quotations, pricing calculations, budget monitoring and cost tracking.
         </p>
+
       </article>
 
       <article class="service">
+
         <div class="service-num">04</div>
+
         <h3>Project Coordination</h3>
+
         <p>
           Coordination between contractors, suppliers, consultants and project stakeholders to keep work moving.
         </p>
+
       </article>
 
       <article class="service">
+
         <div class="service-num">05</div>
+
         <h3>Construction Documentation</h3>
+
         <p>
           RFIs, NCRs, method statements, ITPs, progress reports, document control and construction records.
         </p>
+
       </article>
 
       <article class="service">
+
         <div class="service-num">06</div>
+
         <h3>Site & Cost Control</h3>
+
         <p>
           Progress monitoring, quantity verification, budget tracking and support for procurement and billing.
         </p>
+
       </article>
 
     </div>
@@ -1683,8 +1903,13 @@ footer{
     <div class="section-head">
 
       <div>
+
         <div class="eyebrow">04 — Selected Projects</div>
-        <h2>Project experience.</h2>
+
+        <h2>
+          Project experience.
+        </h2>
+
       </div>
 
       <p class="section-intro">
@@ -1717,21 +1942,27 @@ footer{
 
           </div>
 
-          <button class="slider-btn prev" onclick="moveSlide('piling-slider',-1)" aria-label="Previous image">
+          <button class="slider-btn prev" type="button" onclick="moveSlide('piling-slider',-1)" aria-label="Previous image">
             &#10094;
           </button>
 
-          <button class="slider-btn next" onclick="moveSlide('piling-slider',1)" aria-label="Next image">
+          <button class="slider-btn next" type="button" onclick="moveSlide('piling-slider',1)" aria-label="Next image">
             &#10095;
           </button>
 
-          <div class="slider-dots">
-            <span class="dot active" onclick="setSlide('piling-slider',0)"></span>
-            <span class="dot" onclick="setSlide('piling-slider',1)"></span>
-            <span class="dot" onclick="setSlide('piling-slider',2)"></span>
-            <span class="dot" onclick="setSlide('piling-slider',3)"></span>
-            <span class="dot" onclick="setSlide('piling-slider',4)"></span>
-            <span class="dot" onclick="setSlide('piling-slider',5)"></span>
+          <div class="slider-dots" aria-label="Piling project images">
+
+            <button class="dot active" type="button" onclick="setSlide('piling-slider',0)" aria-label="Show image 1" aria-current="true"></button>
+            <button class="dot" type="button" onclick="setSlide('piling-slider',1)" aria-label="Show image 2" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('piling-slider',2)" aria-label="Show image 3" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('piling-slider',3)" aria-label="Show image 4" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('piling-slider',4)" aria-label="Show image 5" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('piling-slider',5)" aria-label="Show image 6" aria-current="false"></button>
+
+          </div>
+
+          <div class="slider-counter" aria-live="polite">
+            1 / 6
           </div>
 
         </div>
@@ -1783,21 +2014,27 @@ footer{
 
           </div>
 
-          <button class="slider-btn prev" onclick="moveSlide('foundation-slider',-1)" aria-label="Previous image">
+          <button class="slider-btn prev" type="button" onclick="moveSlide('foundation-slider',-1)" aria-label="Previous image">
             &#10094;
           </button>
 
-          <button class="slider-btn next" onclick="moveSlide('foundation-slider',1)" aria-label="Next image">
+          <button class="slider-btn next" type="button" onclick="moveSlide('foundation-slider',1)" aria-label="Next image">
             &#10095;
           </button>
 
-          <div class="slider-dots">
-            <span class="dot active" onclick="setSlide('foundation-slider',0)"></span>
-            <span class="dot" onclick="setSlide('foundation-slider',1)"></span>
-            <span class="dot" onclick="setSlide('foundation-slider',2)"></span>
-            <span class="dot" onclick="setSlide('foundation-slider',3)"></span>
-            <span class="dot" onclick="setSlide('foundation-slider',4)"></span>
-            <span class="dot" onclick="setSlide('foundation-slider',5)"></span>
+          <div class="slider-dots" aria-label="Foundation project images">
+
+            <button class="dot active" type="button" onclick="setSlide('foundation-slider',0)" aria-label="Show image 1" aria-current="true"></button>
+            <button class="dot" type="button" onclick="setSlide('foundation-slider',1)" aria-label="Show image 2" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('foundation-slider',2)" aria-label="Show image 3" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('foundation-slider',3)" aria-label="Show image 4" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('foundation-slider',4)" aria-label="Show image 5" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('foundation-slider',5)" aria-label="Show image 6" aria-current="false"></button>
+
+          </div>
+
+          <div class="slider-counter" aria-live="polite">
+            1 / 6
           </div>
 
         </div>
@@ -1840,17 +2077,23 @@ footer{
 
           </div>
 
-          <button class="slider-btn prev" onclick="moveSlide('guardhouse-slider',-1)" aria-label="Previous image">
+          <button class="slider-btn prev" type="button" onclick="moveSlide('guardhouse-slider',-1)" aria-label="Previous image">
             &#10094;
           </button>
 
-          <button class="slider-btn next" onclick="moveSlide('guardhouse-slider',1)" aria-label="Next image">
+          <button class="slider-btn next" type="button" onclick="moveSlide('guardhouse-slider',1)" aria-label="Next image">
             &#10095;
           </button>
 
-          <div class="slider-dots">
-            <span class="dot active" onclick="setSlide('guardhouse-slider',0)"></span>
-            <span class="dot" onclick="setSlide('guardhouse-slider',1)"></span>
+          <div class="slider-dots" aria-label="Guardhouse project images">
+
+            <button class="dot active" type="button" onclick="setSlide('guardhouse-slider',0)" aria-label="Show image 1" aria-current="true"></button>
+            <button class="dot" type="button" onclick="setSlide('guardhouse-slider',1)" aria-label="Show image 2" aria-current="false"></button>
+
+          </div>
+
+          <div class="slider-counter" aria-live="polite">
+            1 / 2
           </div>
 
         </div>
@@ -1904,22 +2147,28 @@ footer{
 
           </div>
 
-          <button class="slider-btn prev" onclick="moveSlide('fitout-slider',-1)" aria-label="Previous image">
+          <button class="slider-btn prev" type="button" onclick="moveSlide('fitout-slider',-1)" aria-label="Previous image">
             &#10094;
           </button>
 
-          <button class="slider-btn next" onclick="moveSlide('fitout-slider',1)" aria-label="Next image">
+          <button class="slider-btn next" type="button" onclick="moveSlide('fitout-slider',1)" aria-label="Next image">
             &#10095;
           </button>
 
-          <div class="slider-dots">
-            <span class="dot active" onclick="setSlide('fitout-slider',0)"></span>
-            <span class="dot" onclick="setSlide('fitout-slider',1)"></span>
-            <span class="dot" onclick="setSlide('fitout-slider',2)"></span>
-            <span class="dot" onclick="setSlide('fitout-slider',3)"></span>
-            <span class="dot" onclick="setSlide('fitout-slider',4)"></span>
-            <span class="dot" onclick="setSlide('fitout-slider',5)"></span>
-            <span class="dot" onclick="setSlide('fitout-slider',6)"></span>
+          <div class="slider-dots" aria-label="Fit-out project images">
+
+            <button class="dot active" type="button" onclick="setSlide('fitout-slider',0)" aria-label="Show image 1" aria-current="true"></button>
+            <button class="dot" type="button" onclick="setSlide('fitout-slider',1)" aria-label="Show image 2" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('fitout-slider',2)" aria-label="Show image 3" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('fitout-slider',3)" aria-label="Show image 4" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('fitout-slider',4)" aria-label="Show image 5" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('fitout-slider',5)" aria-label="Show image 6" aria-current="false"></button>
+            <button class="dot" type="button" onclick="setSlide('fitout-slider',6)" aria-label="Show image 7" aria-current="false"></button>
+
+          </div>
+
+          <div class="slider-counter" aria-live="polite">
+            1 / 7
           </div>
 
         </div>
@@ -1964,32 +2213,51 @@ footer{
   <div class="container">
 
     <div class="section-head">
+
       <div>
+
         <div class="eyebrow">05 — Proof of Work</div>
-        <h2>Evidence behind the experience.</h2>
+
+        <h2>
+          Evidence behind the experience.
+        </h2>
+
       </div>
+
       <p class="section-intro">
         Selected, sanitized examples showing how I turn drawings, project information and site requirements into measurable quantities, commercial documents and project records.
       </p>
+
     </div>
 
     <p class="proof-note">
       Portfolio samples are presented for professional demonstration. Confidential client, project and commercial information should be redacted or removed before public release.
     </p>
 
-    <div class="proof-filters" role="tablist" aria-label="Filter proof of work">
-      <button class="proof-filter active" type="button" data-filter="all" aria-selected="true" onclick="filterProof('all',this)">All</button>
-      <button class="proof-filter" type="button" data-filter="estimating" aria-selected="false" onclick="filterProof('estimating',this)">Estimating</button>
-      <button class="proof-filter" type="button" data-filter="steel" aria-selected="false" onclick="filterProof('steel',this)">Steel & Optimization</button>
-      <button class="proof-filter" type="button" data-filter="technical" aria-selected="false" onclick="filterProof('technical',this)">Technical</button>
-      <button class="proof-filter" type="button" data-filter="controls" aria-selected="false" onclick="filterProof('controls',this)">Project Controls</button>
+    <div class="proof-filters" aria-label="Filter proof of work">
+
+      <button class="proof-filter active" type="button" data-filter="all" onclick="filterProof('all',this)">
+        All
+      </button>
+
+      <button class="proof-filter" type="button" data-filter="estimating" onclick="filterProof('estimating',this)">
+        Estimating
+      </button>
+
+      <button class="proof-filter" type="button" data-filter="steel" onclick="filterProof('steel',this)">
+        Steel & Optimization
+      </button>
+
+      <button class="proof-filter" type="button" data-filter="technical" onclick="filterProof('technical',this)">
+        Technical
+      </button>
+
+      <button class="proof-filter" type="button" data-filter="controls" onclick="filterProof('controls',this)">
+        Project Controls
+      </button>
+
     </div>
 
-    <!--
-      Proof of Work is now data-driven.
-      Each category can contain ANY number of files.
-      Add another object inside the files array when you upload a new sample.
-    -->
     <div class="sample-grid" id="proofGrid"></div>
 
   </div>
@@ -2000,95 +2268,46 @@ footer{
      PROOF FILE MODAL
 ========================= -->
 
-<div class="proof-files-modal" id="proofFilesModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="proofFilesTitle">
+<div
+  class="proof-files-modal"
+  id="proofFilesModal"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="proofFilesTitle">
+
   <div class="proof-files-card">
+
     <div class="proof-files-header">
+
       <div>
-        <h3 id="proofFilesTitle">Proof of Work</h3>
+
+        <h3 id="proofFilesTitle">
+          Proof of Work
+        </h3>
+
         <p id="proofFilesSubtitle"></p>
+
       </div>
-      <button class="proof-files-close" type="button" onclick="closeProofFilesModal()" aria-label="Close proof of work files">&times;</button>
+
+      <button
+        class="proof-files-close"
+        type="button"
+        onclick="closeProofFilesModal()"
+        aria-label="Close proof of work files">
+        &times;
+      </button>
+
     </div>
-    <div class="proof-file-list" id="proofFileList"></div>
+
+    <div
+      class="proof-file-list"
+      id="proofFileList">
+    </div>
+
   </div>
+
 </div>
-
-<!-- =========================
-     PDF VIEWER MODAL
-========================= -->
-
-<div class="pdf-viewer-modal" id="pdfViewerModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pdfViewerTitle">
-  <div class="pdf-viewer-card">
-    <div class="pdf-viewer-header">
-      <div>
-        <div class="eyebrow">Document Preview</div>
-        <h3 id="pdfViewerTitle">PDF Preview</h3>
-      </div>
-      <div class="pdf-viewer-actions">
-        <a class="pdf-viewer-external" id="pdfViewerExternal" href="#" target="_blank" rel="noopener noreferrer">Open in new tab ↗</a>
-        <button class="proof-files-close" type="button" onclick="closePdfViewer()" aria-label="Close PDF preview">&times;</button>
-      </div>
-    </div>
-    <div class="pdf-viewer-body">
-      <iframe id="pdfViewerFrame" title="PDF document preview" src="about:blank"></iframe>
-    </div>
-  </div>
-</div>
-
-
-/* =========================
-   PDF VIEWER
-========================= */
-
-.pdf-viewer-modal{
-  display:none;
-  position:fixed;
-  z-index:1200;
-  inset:0;
-  background:rgba(13,27,34,.88);
-  backdrop-filter:blur(8px);
-  align-items:center;
-  justify-content:center;
-  padding:18px;
-}
-
-.pdf-viewer-modal.active{display:flex;}
-
-.pdf-viewer-card{
-  width:min(1200px,100%);
-  height:min(900px,94vh);
-  background:#fff;
-  border:1px solid var(--line);
-  box-shadow:0 30px 90px rgba(0,0,0,.28);
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-}
-
-.pdf-viewer-header{
-  min-height:72px;
-  padding:14px 18px;
-  border-bottom:1px solid var(--line);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-}
-
-.pdf-viewer-header .eyebrow{margin:0 0 3px;font-size:.62rem;}
-.pdf-viewer-header h3{margin:0;font-size:1rem;}
-.pdf-viewer-actions{display:flex;align-items:center;gap:14px;}
-.pdf-viewer-external{color:var(--accent);text-decoration:none;font-size:.72rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;}
-.pdf-viewer-external:hover{text-decoration:underline;}
-.pdf-viewer-body{flex:1;min-height:0;background:#e9edf0;}
-.pdf-viewer-body iframe{display:block;width:100%;height:100%;border:0;background:#fff;}
-
-@media(max-width:700px){
-  .pdf-viewer-modal{padding:0;}
-  .pdf-viewer-card{width:100%;height:100%;}
-  .pdf-viewer-header{min-height:64px;padding:12px 14px;}
-  .pdf-viewer-external{display:none;}
-}
 
 <!-- =========================
      TECHNICAL TOOLS
@@ -2099,29 +2318,63 @@ footer{
   <div class="container">
 
     <div class="section-head">
+
       <div>
+
         <div class="eyebrow">06 — Technical Tools</div>
-        <h2>Turning construction workflows into useful tools.</h2>
+
+        <h2>
+          Turning construction workflows into useful tools.
+        </h2>
+
       </div>
+
       <p class="section-intro">
         Practical tools built around estimating, quantity takeoff and material optimization workflows.
       </p>
+
     </div>
 
     <div class="tools-grid">
 
       <article class="tool-card">
-        <div class="tool-num">01 — MATERIAL OPTIMIZATION</div>
-        <h3>Rebar Cutting Optimizer</h3>
-        <p>Optimize required rebar cut lengths against commercial stock lengths and present cutting patterns, utilization and waste.</p>
-        <span class="tool-status">Interactive tool · In development</span>
+
+        <div class="tool-num">
+          01 — MATERIAL OPTIMIZATION
+        </div>
+
+        <h3>
+          Rebar Cutting Optimizer
+        </h3>
+
+        <p>
+          Optimize required rebar cut lengths against commercial stock lengths and present cutting patterns, utilization and waste.
+        </p>
+
+        <span class="tool-status">
+          Interactive tool · In development
+        </span>
+
       </article>
 
       <article class="tool-card">
-        <div class="tool-num">02 — MATERIAL OPTIMIZATION</div>
-        <h3>Steel Cutting Optimizer</h3>
-        <p>Linear cutting workflow for steel stock lengths, required member cuts, cutting patterns and material waste analysis.</p>
-        <span class="tool-status">Interactive tool · In development</span>
+
+        <div class="tool-num">
+          02 — MATERIAL OPTIMIZATION
+        </div>
+
+        <h3>
+          Steel Cutting Optimizer
+        </h3>
+
+        <p>
+          Linear cutting workflow for steel stock lengths, required member cuts, cutting patterns and material waste analysis.
+        </p>
+
+        <span class="tool-status">
+          Interactive tool · In development
+        </span>
+
       </article>
 
     </div>
@@ -2141,8 +2394,13 @@ footer{
     <div class="section-head">
 
       <div>
+
         <div class="eyebrow">07 — Reviews</div>
-        <h2>What people say.</h2>
+
+        <h2>
+          What people say.
+        </h2>
+
       </div>
 
       <p class="section-intro">
@@ -2178,15 +2436,21 @@ footer{
      TECHNICAL PROFILE
 ========================= -->
 
-<section class="expertise">
+<section class="expertise" id="technical-profile">
 
   <div class="container">
 
     <div class="section-head">
 
       <div>
+
         <div class="eyebrow">08 — Technical Profile</div>
-        <h2>Built for detail.<br>Focused on delivery.</h2>
+
+        <h2>
+          Built for detail.<br>
+          Focused on delivery.
+        </h2>
+
       </div>
 
     </div>
@@ -2194,45 +2458,75 @@ footer{
     <div class="expertise-grid">
 
       <div class="expertise-box">
-        <h3>Quantity Surveying & Cost Control</h3>
+
+        <h3>
+          Quantity Surveying & Cost Control
+        </h3>
+
         <p>
           BOQ preparation · Material takeoffs · Cost planning · Budget forecasting · Pricing analysis · Variation orders · Final account reconciliation
         </p>
+
       </div>
 
       <div class="expertise-box">
-        <h3>Project Management & Coordination</h3>
+
+        <h3>
+          Project Management & Coordination
+        </h3>
+
         <p>
           Project planning · WBS/Gantt charts · Site supervision · Subcontractor and supplier coordination · Progress tracking
         </p>
+
       </div>
 
       <div class="expertise-box">
-        <h3>Technical Design & Drafting</h3>
+
+        <h3>
+          Technical Design & Drafting
+        </h3>
+
         <p>
           AutoCAD · SketchUp · Drawing interpretation · Design review · Technical coordination and conflict resolution
         </p>
+
       </div>
 
       <div class="expertise-box">
-        <h3>Quality & Documentation</h3>
+
+        <h3>
+          Quality & Documentation
+        </h3>
+
         <p>
           QA/QC compliance · RFIs · NCRs · Method Statements · ITPs · As-built documentation · Document control
         </p>
+
       </div>
 
       <div class="expertise-box">
-        <h3>Software & Tools</h3>
+
+        <h3>
+          Software & Tools
+        </h3>
+
         <p>
           Microsoft Excel · Microsoft Office · Google Workspace · PlanSwift · AutoCAD · SketchUp · MS Project · PDF markup tools · Microsoft Teams · Zoom
         </p>
+
       </div>
 
       <div class="expertise-box">
-        <h3>Professional Credentials</h3>
+
+        <h3>
+          Professional Credentials
+        </h3>
+
         <p>
           BS Civil Engineering — Mapúa Malayan Colleges Mindanao · Registered Civil Engineer (PRC) · TESDA NCII Electrical Installation & Maintenance · TESDA NCII PV Installation & Maintenance
         </p>
+
       </div>
 
     </div>
@@ -2252,8 +2546,13 @@ footer{
     <div class="section-head">
 
       <div>
+
         <div class="eyebrow">09 — Experience</div>
-        <h2>Career timeline.</h2>
+
+        <h2>
+          Career timeline.
+        </h2>
+
       </div>
 
       <p class="section-intro">
@@ -2385,32 +2684,46 @@ footer{
     <div class="contact-list">
 
       <div class="contact-item">
+
         <small>Email</small>
+
         <a href="mailto:Jkristianramos@gmail.com">
           Jkristianramos@gmail.com
         </a>
+
       </div>
 
       <div class="contact-item">
+
         <small>Phone</small>
+
         <a href="tel:+639460758830">
           +63 946 075 8830
         </a>
+
       </div>
 
       <div class="contact-item">
+
         <small>LinkedIn</small>
+
         <a
           href="https://www.linkedin.com/in/jkristianramos"
           target="_blank"
           rel="noopener">
           linkedin.com/in/jkristianramos
         </a>
+
       </div>
 
       <div class="contact-item">
+
         <small>Location</small>
-        <span>Davao City, Philippines</span>
+
+        <span>
+          Davao City, Philippines
+        </span>
+
       </div>
 
     </div>
@@ -2418,6 +2731,8 @@ footer{
   </div>
 
 </section>
+
+</main>
 
 <!-- =========================
      FOOTER
@@ -2448,6 +2763,7 @@ footer{
   class="review-modal"
   role="dialog"
   aria-modal="true"
+  aria-hidden="true"
   aria-labelledby="reviewModalTitle">
 
   <div class="review-modal-card">
@@ -2508,11 +2824,11 @@ footer{
 
       </div>
 
-      <div class="review-field">
+      <fieldset class="review-field review-rating-fieldset">
 
-        <label>
+        <legend class="review-rating-legend">
           Rating <span class="review-required">*</span>
-        </label>
+        </legend>
 
         <div
           class="review-rating"
@@ -2561,7 +2877,7 @@ footer{
 
         </div>
 
-      </div>
+      </fieldset>
 
       <div class="review-field">
 
@@ -2578,7 +2894,6 @@ footer{
 
       </div>
 
-      <!-- Honeypot field -->
       <div class="review-honeypot" aria-hidden="true">
 
         <label for="reviewWebsite">
@@ -2618,22 +2933,31 @@ footer{
      LIGHTBOX
 ========================= -->
 
-<div id="lightbox" class="lightbox-modal">
+<div
+  id="lightbox"
+  class="lightbox-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-hidden="true"
+  aria-label="Project image viewer">
 
-  <span
+  <button
     class="lightbox-close"
-    onclick="closeLightbox()">
+    type="button"
+    onclick="closeLightbox()"
+    aria-label="Close image viewer">
     &times;
-  </span>
+  </button>
 
   <img
     id="lightbox-img"
     class="lightbox-content"
     src=""
-    alt="Enlarged view">
+    alt="Enlarged project image">
 
   <button
     class="lightbox-btn prev"
+    type="button"
     onclick="changeLightboxSlide(-1)"
     aria-label="Previous image">
     &#10094;
@@ -2641,6 +2965,7 @@ footer{
 
   <button
     class="lightbox-btn next"
+    type="button"
     onclick="changeLightboxSlide(1)"
     aria-label="Next image">
     &#10095;
@@ -2651,25 +2976,87 @@ footer{
 <script>
 
 /* =========================================================
+   GLOBAL UI STATE
+========================================================= */
+
+let previousBodyOverflow = '';
+let activeModal = null;
+
+
+/* =========================================================
+   BODY SCROLL LOCK
+========================================================= */
+
+function lockBodyScroll(){
+
+  if(!document.body.classList.contains('modal-open')){
+    previousBodyOverflow = document.body.style.overflow;
+  }
+
+  document.body.classList.add('modal-open');
+
+}
+
+function unlockBodyScroll(){
+
+  document.body.classList.remove('modal-open');
+
+  document.body.style.overflow =
+    previousBodyOverflow || '';
+
+  previousBodyOverflow = '';
+
+}
+
+
+/* =========================================================
    MOBILE NAVIGATION
 ========================================================= */
 
 function toggleMenu(){
 
-  const navLinks = document.getElementById('navLinks');
+  const navLinks =
+    document.getElementById('navLinks');
 
-  if(navLinks){
+  const menuButton =
+    document.querySelector('.menu-toggle');
+
+  if(!navLinks || !menuButton) return;
+
+  const isOpen =
     navLinks.classList.toggle('active');
-  }
+
+  menuButton.textContent =
+    isOpen ? '×' : '☰';
+
+  menuButton.setAttribute(
+    'aria-expanded',
+    String(isOpen)
+  );
 
 }
 
 function closeMenu(){
 
-  const navLinks = document.getElementById('navLinks');
+  const navLinks =
+    document.getElementById('navLinks');
+
+  const menuButton =
+    document.querySelector('.menu-toggle');
 
   if(navLinks){
     navLinks.classList.remove('active');
+  }
+
+  if(menuButton){
+
+    menuButton.textContent = '☰';
+
+    menuButton.setAttribute(
+      'aria-expanded',
+      'false'
+    );
+
   }
 
 }
@@ -2679,66 +3066,109 @@ function closeMenu(){
    PROJECT SLIDERS
 ========================================================= */
 
-function moveSlide(sliderId,direction){
-
-  const slider = document.getElementById(sliderId);
+function updateSliderCounter(slider,index){
 
   if(!slider) return;
 
-  const slides = slider.querySelectorAll('.slide');
-  const dots = slider.querySelectorAll('.dot');
+  const counter =
+    slider.querySelector('.slider-counter');
+
+  const slides =
+    slider.querySelectorAll('.slide');
+
+  if(!counter || !slides.length) return;
+
+  counter.textContent =
+    `${index + 1} / ${slides.length}`;
+
+}
+
+function updateSliderDots(slider,index){
+
+  if(!slider) return;
+
+  const dots =
+    slider.querySelectorAll('.dot');
+
+  dots.forEach((dot,dotIndex) => {
+
+    const active =
+      dotIndex === index;
+
+    dot.classList.toggle(
+      'active',
+      active
+    );
+
+    dot.setAttribute(
+      'aria-current',
+      String(active)
+    );
+
+  });
+
+}
+
+function moveSlide(sliderId,direction){
+
+  const slider =
+    document.getElementById(sliderId);
+
+  if(!slider) return;
+
+  const slides =
+    slider.querySelectorAll('.slide');
 
   if(!slides.length) return;
 
-  let activeIndex = Array.from(slides)
-    .findIndex(slide => slide.classList.contains('active'));
+  let activeIndex =
+    Array.from(slides)
+      .findIndex(slide =>
+        slide.classList.contains('active')
+      );
 
   if(activeIndex < 0){
     activeIndex = 0;
   }
 
-  slides[activeIndex].classList.remove('active');
-
-  if(dots[activeIndex]){
-    dots[activeIndex].classList.remove('active');
-  }
-
-  activeIndex =
+  const nextIndex =
     (activeIndex + direction + slides.length) %
     slides.length;
 
-  slides[activeIndex].classList.add('active');
-
-  if(dots[activeIndex]){
-    dots[activeIndex].classList.add('active');
-  }
+  setSlide(sliderId,nextIndex);
 
 }
 
 function setSlide(sliderId,index){
 
-  const slider = document.getElementById(sliderId);
+  const slider =
+    document.getElementById(sliderId);
 
   if(!slider) return;
 
-  const slides = slider.querySelectorAll('.slide');
-  const dots = slider.querySelectorAll('.dot');
+  const slides =
+    slider.querySelectorAll('.slide');
 
   if(!slides[index]) return;
 
-  slides.forEach(slide => {
-    slide.classList.remove('active');
+  slides.forEach((slide,slideIndex) => {
+
+    slide.classList.toggle(
+      'active',
+      slideIndex === index
+    );
+
   });
 
-  dots.forEach(dot => {
-    dot.classList.remove('active');
-  });
+  updateSliderDots(
+    slider,
+    index
+  );
 
-  slides[index].classList.add('active');
-
-  if(dots[index]){
-    dots[index].classList.add('active');
-  }
+  updateSliderCounter(
+    slider,
+    index
+  );
 
 }
 
@@ -2752,18 +3182,26 @@ let currentGalleryIndex = 0;
 
 function openLightbox(imgElement){
 
-  const parentCard = imgElement.closest('.project');
+  const parentCard =
+    imgElement.closest('.project');
 
   if(!parentCard) return;
 
-  const images = parentCard.querySelectorAll('.slide');
+  const images =
+    parentCard.querySelectorAll('.slide');
 
-  currentGallery = Array.from(images)
-    .filter(img => img.src)
-    .map(img => img.src);
+  currentGallery =
+    Array.from(images)
+      .filter(img => img.src)
+      .map(img => ({
+        src:img.src,
+        alt:img.alt || 'Enlarged project image'
+      }));
 
   currentGalleryIndex =
-    currentGallery.indexOf(imgElement.src);
+    currentGallery.findIndex(
+      image => image.src === imgElement.src
+    );
 
   if(currentGalleryIndex === -1){
     currentGalleryIndex = 0;
@@ -2771,18 +3209,37 @@ function openLightbox(imgElement){
 
   if(!currentGallery.length) return;
 
-  const lightboxImage =
-    document.getElementById('lightbox-img');
-
   const lightbox =
     document.getElementById('lightbox');
 
+  const lightboxImage =
+    document.getElementById('lightbox-img');
+
+  if(!lightbox || !lightboxImage) return;
+
   lightboxImage.src =
-    currentGallery[currentGalleryIndex];
+    currentGallery[currentGalleryIndex].src;
+
+  lightboxImage.alt =
+    currentGallery[currentGalleryIndex].alt;
 
   lightbox.classList.add('active');
 
-  document.body.style.overflow = 'hidden';
+  lightbox.setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
+  activeModal = 'lightbox';
+
+  lockBodyScroll();
+
+  const closeButton =
+    lightbox.querySelector('.lightbox-close');
+
+  if(closeButton){
+    closeButton.focus();
+  }
 
 }
 
@@ -2795,7 +3252,25 @@ function closeLightbox(){
 
   lightbox.classList.remove('active');
 
-  document.body.style.overflow = 'auto';
+  lightbox.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+  const lightboxImage =
+    document.getElementById('lightbox-img');
+
+  if(lightboxImage){
+    lightboxImage.removeAttribute('src');
+  }
+
+  currentGallery = [];
+  currentGalleryIndex = 0;
+
+  if(activeModal === 'lightbox'){
+    activeModal = null;
+    unlockBodyScroll();
+  }
 
 }
 
@@ -2807,35 +3282,26 @@ function changeLightboxSlide(direction){
     (currentGalleryIndex + direction + currentGallery.length) %
     currentGallery.length;
 
-  document.getElementById('lightbox-img').src =
-    currentGallery[currentGalleryIndex];
+  const lightboxImage =
+    document.getElementById('lightbox-img');
+
+  if(!lightboxImage) return;
+
+  lightboxImage.src =
+    currentGallery[currentGalleryIndex].src;
+
+  lightboxImage.alt =
+    currentGallery[currentGalleryIndex].alt;
 
 }
 
 
-
 /* =========================================================
-   PROOF OF WORK — DATA + MULTI-FILE RENDERING
+   PROOF OF WORK — DATA
 ========================================================= */
 
-/*
-  ADDING A NEW FILE:
-
-  1. Upload the PDF into the correct folder, for example:
-     samples/boq/BOQ_Sample_02_Redacted.pdf
-
-  2. Add one object to the relevant `files` array below:
-
-     {
-       name: 'BOQ Sample 02',
-       path: 'samples/boq/BOQ_Sample_02_Redacted.pdf',
-       meta: 'PDF · 8 pages'
-     }
-
-  You do NOT need to create another card in the HTML.
-*/
-
 const proofOfWork = [
+
   {
     id:'boq',
     number:'01',
@@ -2851,6 +3317,7 @@ const proofOfWork = [
       }
     ]
   },
+
   {
     id:'cost-estimate',
     number:'02',
@@ -2860,6 +3327,7 @@ const proofOfWork = [
     tags:['Estimating','Pricing'],
     files:[]
   },
+
   {
     id:'tender-summary',
     number:'03',
@@ -2869,6 +3337,7 @@ const proofOfWork = [
     tags:['Tender','Commercial'],
     files:[]
   },
+
   {
     id:'uk-joinery',
     number:'04',
@@ -2878,6 +3347,7 @@ const proofOfWork = [
     tags:['QTO','Pricing','Quotations'],
     files:[]
   },
+
   {
     id:'steel-qto',
     number:'05',
@@ -2887,6 +3357,7 @@ const proofOfWork = [
     tags:['Steel','QTO','Fabrication'],
     files:[]
   },
+
   {
     id:'cutting',
     number:'06',
@@ -2896,6 +3367,7 @@ const proofOfWork = [
     tags:['Cutting','Optimization','Waste'],
     files:[]
   },
+
   {
     id:'material-schedule',
     number:'07',
@@ -2905,6 +3377,7 @@ const proofOfWork = [
     tags:['MTO','Materials','Procurement'],
     files:[]
   },
+
   {
     id:'rfi-rfa',
     number:'08',
@@ -2914,6 +3387,7 @@ const proofOfWork = [
     tags:['RFI','RFA','Coordination'],
     files:[]
   },
+
   {
     id:'method-statement',
     number:'09',
@@ -2923,6 +3397,7 @@ const proofOfWork = [
     tags:['Method Statement','ITP','QA/QC'],
     files:[]
   },
+
   {
     id:'ncr',
     number:'10',
@@ -2932,6 +3407,7 @@ const proofOfWork = [
     tags:['NCR','Quality','Closeout'],
     files:[]
   },
+
   {
     id:'progress-report',
     number:'11',
@@ -2941,6 +3417,7 @@ const proofOfWork = [
     tags:['Progress','Reporting','Lookahead'],
     files:[]
   },
+
   {
     id:'supplier-comparison',
     number:'12',
@@ -2950,6 +3427,7 @@ const proofOfWork = [
     tags:['Comparison','Suppliers','Tender'],
     files:[]
   },
+
   {
     id:'progress-billing',
     number:'13',
@@ -2959,6 +3437,7 @@ const proofOfWork = [
     tags:['Billing','Cost Tracking','QTO'],
     files:[]
   },
+
   {
     id:'contract-award',
     number:'14',
@@ -2968,153 +3447,262 @@ const proofOfWork = [
     tags:['Contract','Award','Commercial'],
     files:[]
   }
+
 ];
 
 function renderProofOfWork(category='all'){
 
-  const grid = document.getElementById('proofGrid');
+  const grid =
+    document.getElementById('proofGrid');
+
   if(!grid) return;
 
-  const items = proofOfWork.filter(item =>
-    category === 'all' || item.category === category
-  );
+  const items =
+    proofOfWork.filter(item =>
+      category === 'all' ||
+      item.category === category
+    );
 
-  grid.innerHTML = items.map(item => {
+  grid.innerHTML =
+    items.map(item => {
 
-    const fileCount = item.files.length;
-    const hasFiles = fileCount > 0;
-    const countLabel = fileCount === 1 ? '1 sample' : `${fileCount} samples`;
+      const fileCount =
+        Array.isArray(item.files)
+          ? item.files.length
+          : 0;
 
-    const action = hasFiles
-      ? `<div class="proof-card-actions">
-           <span class="proof-count">${countLabel}</span>
-           <button class="proof-open" type="button" onclick="openProofFilesModal('${item.id}')">View samples →</button>
-         </div>`
-      : `<div class="proof-card-actions">
-           <span class="proof-empty">Public sample not uploaded yet</span>
-         </div>`;
+      const hasFiles =
+        fileCount > 0;
 
-    const tags = item.tags?.length
-      ? `<div class="tags">${item.tags.map(tag => `<span class="tag">${escapeProofText(tag)}</span>`).join('')}</div>`
-      : '';
+      const countLabel =
+        fileCount === 1
+          ? '1 sample'
+          : `${fileCount} samples`;
 
-    return `
-      <article class="sample-card proof-card" data-category="${item.category}">
-        <div class="sample-num">${item.number}</div>
-        <h3>${escapeProofText(item.title)}</h3>
-        <p>${escapeProofText(item.description)}</p>
-        ${tags}
-        ${action}
-      </article>
-    `;
+      const action =
+        hasFiles
 
-  }).join('');
+          ? `
+            <div class="proof-card-actions">
+
+              <span class="proof-count">
+                ${countLabel}
+              </span>
+
+              <button
+                class="proof-open"
+                type="button"
+                onclick="openProofFilesModal('${escapeProofAttribute(item.id)}')">
+                View sample files →
+              </button>
+
+            </div>
+          `
+
+          : `
+            <div class="proof-card-actions">
+
+              <span class="proof-empty">
+                Public sample not uploaded yet
+              </span>
+
+            </div>
+          `;
+
+      const tags =
+        Array.isArray(item.tags) && item.tags.length
+
+          ? `
+            <div class="tags">
+              ${item.tags.map(tag =>
+                `<span class="tag">${escapeProofText(tag)}</span>`
+              ).join('')}
+            </div>
+          `
+
+          : '';
+
+      return `
+
+        <article
+          class="sample-card proof-card"
+          data-category="${escapeProofAttribute(item.category)}">
+
+          <div class="sample-num">
+            ${escapeProofText(item.number)}
+          </div>
+
+          <h3>
+            ${escapeProofText(item.title)}
+          </h3>
+
+          <p>
+            ${escapeProofText(item.description)}
+          </p>
+
+          ${tags}
+
+          ${action}
+
+        </article>
+
+      `;
+
+    }).join('');
+
 }
 
 function filterProof(category,button){
 
-  document.querySelectorAll('.proof-filter').forEach(item => {
-    const active = item === button;
-    item.classList.toggle('active',active);
-    item.setAttribute('aria-selected',String(active));
-  });
+  document
+    .querySelectorAll('.proof-filter')
+    .forEach(item => {
+
+      item.classList.toggle(
+        'active',
+        item === button
+      );
+
+    });
 
   renderProofOfWork(category);
+
 }
 
 function openProofFilesModal(id){
 
-  const item = proofOfWork.find(entry => entry.id === id);
+  const item =
+    proofOfWork.find(
+      entry => entry.id === id
+    );
+
   if(!item) return;
 
-  const modal = document.getElementById('proofFilesModal');
-  const title = document.getElementById('proofFilesTitle');
-  const subtitle = document.getElementById('proofFilesSubtitle');
-  const list = document.getElementById('proofFileList');
+  const modal =
+    document.getElementById('proofFilesModal');
 
-  title.textContent = item.title;
-  subtitle.textContent = `${item.files.length} ${item.files.length === 1 ? 'sample' : 'samples'} available`;
+  const title =
+    document.getElementById('proofFilesTitle');
 
-  list.innerHTML = item.files.length
-    ? item.files.map(file => `
-        <div class="proof-file">
-          <div class="proof-file-info">
-            <span class="proof-file-name">${escapeProofText(file.name)}</span>
-            <span class="proof-file-meta">${escapeProofText(file.meta || 'Document')}</span>
+  const subtitle =
+    document.getElementById('proofFilesSubtitle');
+
+  const list =
+    document.getElementById('proofFileList');
+
+  if(!modal || !title || !subtitle || !list) return;
+
+  title.textContent =
+    item.title;
+
+  subtitle.textContent =
+    `${item.files.length} ${
+      item.files.length === 1
+        ? 'sample'
+        : 'samples'
+    } available`;
+
+  list.innerHTML =
+    item.files.length
+
+      ? item.files.map(file => `
+
+          <div class="proof-file">
+
+            <div class="proof-file-info">
+
+              <span class="proof-file-name">
+                ${escapeProofText(file.name)}
+              </span>
+
+              <span class="proof-file-meta">
+                ${escapeProofText(file.meta || 'Document')}
+              </span>
+
+            </div>
+
+            <a
+              class="proof-file-link"
+              href="${escapeProofAttribute(file.path)}"
+              target="_blank"
+              rel="noopener noreferrer">
+              Open PDF →
+            </a>
+
           </div>
-          <button class="proof-file-link" type="button" onclick="openPdfViewer('${escapeProofAttribute(file.path)}','${escapeProofAttribute(file.name)}')">Open PDF →</button>
+
+        `).join('')
+
+      : `
+        <div class="proof-no-files">
+          No public sample has been uploaded for this category yet.
         </div>
-      `).join('')
-    : '<div class="proof-no-files">No public sample has been uploaded for this category yet.</div>';
+      `;
 
   modal.classList.add('active');
-  modal.setAttribute('aria-hidden','false');
-  document.body.style.overflow='hidden';
+
+  modal.setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
+  activeModal = 'proof';
+
+  lockBodyScroll();
+
+  const closeButton =
+    modal.querySelector('.proof-files-close');
+
+  if(closeButton){
+    closeButton.focus();
+  }
+
 }
-
-function openPdfViewer(path,name){
-
-  const modal = document.getElementById('pdfViewerModal');
-  const frame = document.getElementById('pdfViewerFrame');
-  const title = document.getElementById('pdfViewerTitle');
-  const external = document.getElementById('pdfViewerExternal');
-
-  if(!modal || !frame || !title || !external) return;
-
-  const safePath = String(path);
-  const pdfUrl = safePath + (safePath.includes('#') ? '&' : '#') + 'toolbar=1&navpanes=0&view=FitH';
-
-  title.textContent = name || 'PDF Preview';
-  frame.src = pdfUrl;
-  external.href = safePath;
-
-  modal.classList.add('active');
-  modal.setAttribute('aria-hidden','false');
-  document.body.style.overflow='hidden';
-}
-
-function closePdfViewer(){
-
-  const modal = document.getElementById('pdfViewerModal');
-  const frame = document.getElementById('pdfViewerFrame');
-
-  if(!modal) return;
-
-  modal.classList.remove('active');
-  modal.setAttribute('aria-hidden','true');
-  if(frame) frame.src='about:blank';
-
-  // The proof-files modal remains open underneath the PDF viewer.
-  document.body.style.overflow='hidden';
-}
-
 
 function closeProofFilesModal(){
 
-  const modal = document.getElementById('proofFilesModal');
+  const modal =
+    document.getElementById('proofFilesModal');
+
   if(!modal) return;
 
   modal.classList.remove('active');
-  modal.setAttribute('aria-hidden','true');
-  document.body.style.overflow='auto';
+
+  modal.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+  if(activeModal === 'proof'){
+
+    activeModal = null;
+
+    unlockBodyScroll();
+
+  }
+
 }
 
 function escapeProofText(value){
+
   return String(value)
     .replace(/&/g,'&amp;')
     .replace(/</g,'&lt;')
     .replace(/>/g,'&gt;')
     .replace(/"/g,'&quot;')
     .replace(/'/g,'&#039;');
+
 }
 
 function escapeProofAttribute(value){
+
   return String(value)
     .replace(/&/g,'%26')
     .replace(/"/g,'%22')
     .replace(/</g,'%3C')
     .replace(/>/g,'%3E')
     .replace(/'/g,'%27');
+
 }
 
 
@@ -3122,12 +3710,6 @@ function escapeProofAttribute(value){
    REVIEW SYSTEM
    GOOGLE APPS SCRIPT
 ========================================================= */
-
-/*
-  CURRENT GOOGLE APPS SCRIPT WEB APP URL
-
-  This is the new deployment supplied by Kristian.
-*/
 
 const REVIEWS_API_URL =
   'https://script.google.com/macros/s/AKfycbyDFFZ3udb-x6MZp4b1w9k5Hrw0gerDYzPMan-KuHPOBYK_IFM-871E9RvXPdBdrItYRA/exec';
@@ -3146,7 +3728,14 @@ function openReviewModal(){
 
   modal.classList.add('active');
 
-  document.body.style.overflow = 'hidden';
+  modal.setAttribute(
+    'aria-hidden',
+    'false'
+  );
+
+  activeModal = 'review';
+
+  lockBodyScroll();
 
   setTimeout(() => {
 
@@ -3170,7 +3759,18 @@ function closeReviewModal(){
 
   modal.classList.remove('active');
 
-  document.body.style.overflow = 'auto';
+  modal.setAttribute(
+    'aria-hidden',
+    'true'
+  );
+
+  if(activeModal === 'review'){
+
+    activeModal = null;
+
+    unlockBodyScroll();
+
+  }
 
 }
 
@@ -3179,13 +3779,16 @@ function closeReviewModal(){
 
 document
   .getElementById('reviewModal')
-  ?.addEventListener('click',(event)=>{
+  ?.addEventListener(
+    'click',
+    event => {
 
-    if(event.target.id === 'reviewModal'){
-      closeReviewModal();
+      if(event.target.id === 'reviewModal'){
+        closeReviewModal();
+      }
+
     }
-
-  });
+  );
 
 
 /* =========================================================
@@ -3199,7 +3802,8 @@ function setReviewStatus(message,type){
 
   if(!status) return;
 
-  status.textContent = message;
+  status.textContent =
+    message;
 
   status.className =
     'review-form-status show ' +
@@ -3224,14 +3828,11 @@ async function submitReview(event){
 
   if(!form || !submitButton) return;
 
-  /*
-    Safety check in case the API URL was accidentally left
-    as the placeholder.
-  */
-
   if(
     !REVIEWS_API_URL ||
-    REVIEWS_API_URL.includes('PASTE_YOUR_APPS_SCRIPT')
+    REVIEWS_API_URL.includes(
+      'PASTE_YOUR_APPS_SCRIPT'
+    )
   ){
 
     setReviewStatus(
@@ -3240,11 +3841,8 @@ async function submitReview(event){
     );
 
     return;
-  }
 
-  /*
-    Run browser validation first.
-  */
+  }
 
   if(!form.reportValidity()){
     return;
@@ -3254,23 +3852,29 @@ async function submitReview(event){
     new FormData(form);
 
   const name =
-    String(formData.get('name') || '').trim();
+    String(
+      formData.get('name') || ''
+    ).trim();
 
   const role =
-    String(formData.get('role') || '').trim();
+    String(
+      formData.get('role') || ''
+    ).trim();
 
   const rating =
-    String(formData.get('rating') || '').trim();
+    String(
+      formData.get('rating') || ''
+    ).trim();
 
   const review =
-    String(formData.get('review') || '').trim();
+    String(
+      formData.get('review') || ''
+    ).trim();
 
   const website =
-    String(formData.get('website') || '').trim();
-
-  /*
-    Additional validation before sending.
-  */
+    String(
+      formData.get('website') || ''
+    ).trim();
 
   if(!name){
 
@@ -3280,6 +3884,7 @@ async function submitReview(event){
     );
 
     return;
+
   }
 
   if(!review){
@@ -3290,6 +3895,7 @@ async function submitReview(event){
     );
 
     return;
+
   }
 
   if(!/^[1-5]$/.test(rating)){
@@ -3300,6 +3906,7 @@ async function submitReview(event){
     );
 
     return;
+
   }
 
   /*
@@ -3318,15 +3925,8 @@ async function submitReview(event){
     form.reset();
 
     return;
+
   }
-
-  /*
-    Prepare URL-encoded form data.
-
-    URLSearchParams is intentionally used here because
-    Google Apps Script Web Apps reliably expose these
-    values through e.parameter.
-  */
 
   const payload =
     new URLSearchParams();
@@ -3336,10 +3936,6 @@ async function submitReview(event){
   payload.set('rating',rating);
   payload.set('review',review);
   payload.set('website','');
-
-  /*
-    Prevent duplicate clicks while submitting.
-  */
 
   submitButton.disabled = true;
 
@@ -3359,10 +3955,6 @@ async function submitReview(event){
         }
       );
 
-    /*
-      Check HTTP response.
-    */
-
     if(!response.ok){
 
       throw new Error(
@@ -3372,14 +3964,13 @@ async function submitReview(event){
 
     }
 
-    /*
-      Google Apps Script should return JSON.
-    */
-
     const result =
       await response.json();
 
-    if(!result || result.success !== true){
+    if(
+      !result ||
+      result.success !== true
+    ){
 
       throw new Error(
         result?.message ||
@@ -3388,10 +3979,6 @@ async function submitReview(event){
 
     }
 
-    /*
-      Successful submission.
-    */
-
     form.reset();
 
     setReviewStatus(
@@ -3399,15 +3986,14 @@ async function submitReview(event){
       'success'
     );
 
-    /*
-      Close the modal after a short delay.
-    */
-
     setTimeout(() => {
 
       closeReviewModal();
 
-      setReviewStatus('','');
+      setReviewStatus(
+        '',
+        ''
+      );
 
     },2200);
 
@@ -3448,13 +4034,16 @@ async function loadApprovedReviews(){
 
   if(
     !REVIEWS_API_URL ||
-    REVIEWS_API_URL.includes('PASTE_YOUR_APPS_SCRIPT')
+    REVIEWS_API_URL.includes(
+      'PASTE_YOUR_APPS_SCRIPT'
+    )
   ){
 
     grid.innerHTML =
       '<div class="review-status">Reviews are ready, but the review service still needs to be connected.</div>';
 
     return;
+
   }
 
   try{
@@ -3480,7 +4069,10 @@ async function loadApprovedReviews(){
     const result =
       await response.json();
 
-    if(!result || result.success !== true){
+    if(
+      !result ||
+      result.success !== true
+    ){
 
       throw new Error(
         result?.message ||
@@ -3494,10 +4086,6 @@ async function loadApprovedReviews(){
         ? result.reviews
         : [];
 
-    /*
-      No approved reviews yet.
-    */
-
     if(!approvedReviews.length){
 
       grid.innerHTML =
@@ -3506,10 +4094,6 @@ async function loadApprovedReviews(){
       return;
 
     }
-
-    /*
-      Build review cards.
-    */
 
     grid.innerHTML =
       approvedReviews.map(item => {
@@ -3558,6 +4142,7 @@ async function loadApprovedReviews(){
           );
 
         return `
+
           <article class="review-card">
 
             ${
@@ -3591,6 +4176,7 @@ async function loadApprovedReviews(){
             </div>
 
           </article>
+
         `;
 
       }).join('');
@@ -3628,6 +4214,121 @@ function escapeReviewHtml(value){
 
 
 /* =========================================================
+   MODAL BACKDROP CLICKS
+========================================================= */
+
+document
+  .getElementById('proofFilesModal')
+  ?.addEventListener(
+    'click',
+    event => {
+
+      if(
+        event.target.id ===
+        'proofFilesModal'
+      ){
+
+        closeProofFilesModal();
+
+      }
+
+    }
+  );
+
+document
+  .getElementById('lightbox')
+  ?.addEventListener(
+    'click',
+    event => {
+
+      if(
+        event.target.id ===
+        'lightbox'
+      ){
+
+        closeLightbox();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   KEYBOARD CONTROLS
+========================================================= */
+
+document.addEventListener(
+  'keydown',
+  event => {
+
+    if(event.key === 'Escape'){
+
+      if(
+        document
+          .getElementById('lightbox')
+          ?.classList.contains('active')
+      ){
+
+        closeLightbox();
+
+        return;
+
+      }
+
+      if(
+        document
+          .getElementById('reviewModal')
+          ?.classList.contains('active')
+      ){
+
+        closeReviewModal();
+
+        return;
+
+      }
+
+      if(
+        document
+          .getElementById('proofFilesModal')
+          ?.classList.contains('active')
+      ){
+
+        closeProofFilesModal();
+
+        return;
+
+      }
+
+    }
+
+    if(
+      event.key === 'ArrowLeft' &&
+      document
+        .getElementById('lightbox')
+        ?.classList.contains('active')
+    ){
+
+      changeLightboxSlide(-1);
+
+    }
+
+    if(
+      event.key === 'ArrowRight' &&
+      document
+        .getElementById('lightbox')
+        ?.classList.contains('active')
+    ){
+
+      changeLightboxSlide(1);
+
+    }
+
+  }
+);
+
+
+/* =========================================================
    DOM READY
 ========================================================= */
 
@@ -3659,24 +4360,48 @@ document.addEventListener(
 
     });
 
+
     /*
-      Automatically hide slider controls
-      when a project has only one image.
+      Automatically configure slider controls
+      and initial counters.
     */
 
     document
       .querySelectorAll('.project-slider')
       .forEach(slider => {
 
+        const slides =
+          slider.querySelectorAll('.slide');
+
         const slideCount =
-          slider.querySelectorAll('.slide').length;
+          slides.length;
 
         slider.classList.toggle(
           'single-photo',
           slideCount <= 1
         );
 
+        const activeIndex =
+          Math.max(
+            0,
+            Array.from(slides)
+              .findIndex(slide =>
+                slide.classList.contains('active')
+              )
+          );
+
+        updateSliderDots(
+          slider,
+          activeIndex
+        );
+
+        updateSliderCounter(
+          slider,
+          activeIndex
+        );
+
       });
+
 
     /*
       Render the data-driven Proof of Work library.
@@ -3684,74 +4409,12 @@ document.addEventListener(
 
     renderProofOfWork('all');
 
+
     /*
       Load approved reviews from Google Apps Script.
     */
 
     loadApprovedReviews();
-
-  }
-);
-
-
-document.getElementById('proofFilesModal')?.addEventListener('click',event => {
-  if(event.target.id === 'proofFilesModal'){
-    closeProofFilesModal();
-  }
-});
-
-document.getElementById('pdfViewerModal')?.addEventListener('click',event => {
-  if(event.target.id === 'pdfViewerModal'){
-    closePdfViewer();
-  }
-});
-
-/* =========================================================
-   KEYBOARD CONTROLS
-========================================================= */
-
-document.addEventListener(
-  'keydown',
-  event => {
-
-    /*
-      Escape closes either modal.
-    */
-
-    if(event.key === 'Escape'){
-
-      closeLightbox();
-      closeReviewModal();
-      closePdfViewer();
-      closeProofFilesModal();
-
-    }
-
-    /*
-      Arrow keys control the image lightbox.
-    */
-
-    if(
-      event.key === 'ArrowLeft' &&
-      document
-        .getElementById('lightbox')
-        ?.classList.contains('active')
-    ){
-
-      changeLightboxSlide(-1);
-
-    }
-
-    if(
-      event.key === 'ArrowRight' &&
-      document
-        .getElementById('lightbox')
-        ?.classList.contains('active')
-    ){
-
-      changeLightboxSlide(1);
-
-    }
 
   }
 );
