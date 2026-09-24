@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="John Kristian A. Ramos, RCE — Civil Engineer, Construction Estimator and Project Engineer specializing in quantity takeoffs, BOQs, cost estimation and project coordination.">
+<meta name="description" content="John Kristian A. Ramos, RCE — Civil Engineer, Construction Estimator and Project Engineer specializing in quantity takeoffs, BOQs, cost estimation, steel estimating, project documentation and project coordination.">
 <meta name="author" content="John Kristian A. Ramos">
 <title>John Kristian A. Ramos, RCE | Civil Engineer & Construction Estimator</title>
 
@@ -1194,12 +1194,13 @@ footer{
 
     <div class="nav-links" id="navLinks">
       <a href="#about" onclick="closeMenu()">About</a>
-      <a href="#how-i-work" onclick="closeMenu()">How I Work</a>
       <a href="#services" onclick="closeMenu()">Expertise</a>
+      <a href="#how-i-work" onclick="closeMenu()">How I Work</a>
       <a href="#projects" onclick="closeMenu()">Projects</a>
       <a href="#proof" onclick="closeMenu()">Proof of Work</a>
-      <a href="#reviews" onclick="closeMenu()">Reviews</a>
+      <a href="#tools" onclick="closeMenu()">Tools</a>
       <a href="#experience" onclick="closeMenu()">Experience</a>
+      <a href="#reviews" onclick="closeMenu()">Reviews</a>
       <a href="#contact" onclick="closeMenu()">Contact</a>
     </div>
 
@@ -1229,8 +1230,8 @@ footer{
       </p>
 
       <div class="actions">
-        <a class="btn primary" href="#projects">
-          View My Work
+        <a class="btn primary" href="#proof">
+          View Proof of Work
         </a>
 
         <a class="btn" href="#contact">
@@ -1749,56 +1750,171 @@ footer{
       </p>
     </div>
 
-    <div class="sample-grid">
+    <p class="proof-note">
+      Portfolio samples are presented for professional demonstration. Confidential client, project and commercial information should be redacted or removed before public release.
+    </p>
 
-      <article class="sample-card">
+    <div class="proof-filters" role="tablist" aria-label="Filter proof of work">
+      <button class="proof-filter active" type="button" data-filter="all" aria-selected="true" onclick="filterProof('all',this)">All</button>
+      <button class="proof-filter" type="button" data-filter="estimating" onclick="filterProof('estimating',this)">Estimating</button>
+      <button class="proof-filter" type="button" data-filter="steel" onclick="filterProof('steel',this)">Steel & Optimization</button>
+      <button class="proof-filter" type="button" data-filter="technical" onclick="filterProof('technical',this)">Technical</button>
+      <button class="proof-filter" type="button" data-filter="controls" onclick="filterProof('controls',this)">Project Controls</button>
+    </div>
+
+    <div class="sample-grid" id="proofGrid">
+
+      <article class="sample-card proof-card featured" data-category="estimating">
         <div class="sample-num">01</div>
-        <h3>UK Joinery Estimating</h3>
-        <p>Drawing and specification review, quantity takeoff, pricing calculations, estimate preparation and quotation records for bespoke windows and doors.</p>
-        <div class="tags"><span class="tag">QTO</span><span class="tag">Pricing</span><span class="tag">Quotations</span></div>
-      </article>
-
-      <article class="sample-card">
-        <div class="sample-num">02</div>
-        <h3>Steel Fabrication & Erection</h3>
-        <p>Steel QTO, steel and rebar cutting schemes, BOQ, cost estimates, progress reports, technical documentation and contract/award documentation.</p>
-        <div class="tags"><span class="tag">Steel QTO</span><span class="tag">Cutting Schemes</span><span class="tag">BOQ</span><span class="tag">Progress</span></div>
-      </article>
-
-      <article class="sample-card">
-        <div class="sample-num">03</div>
-        <h3>Building & Infrastructure</h3>
-        <p>BOQs, material takeoffs, cost estimates, schedules, progress documentation and coordination across contractors, consultants and project teams.</p>
-        <div class="tags"><span class="tag">MTO</span><span class="tag">Cost Estimate</span><span class="tag">Scheduling</span></div>
-      </article>
-
-      <article class="sample-card">
-        <div class="sample-num">04</div>
         <h3>Bill of Quantities — Redacted Sample</h3>
         <p>Multi-trade BOQ covering site, structural, architectural, plumbing and electrical works, with unit costs, weighted percentages and cost breakdowns.</p>
         <div class="sample-meta">PDF · 13 pages</div>
         <a class="sample-link" href="samples/BOQ_Sample_Redacted.pdf" target="_blank" rel="noopener">View PDF Sample →</a>
       </article>
 
+      <article class="sample-card proof-card" data-category="estimating">
+        <div class="sample-num">02</div>
+        <h3>Cost Estimate — Redacted Sample</h3>
+        <p>Estimate presentation demonstrating the transition from measured quantities into project pricing and cost information.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="estimating">
+        <div class="sample-num">03</div>
+        <h3>Tender Summary — Redacted Sample</h3>
+        <p>Commercial summary showing how tender or quotation information can be organized for comparison, review and project decision support.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="estimating">
+        <div class="sample-num">04</div>
+        <h3>UK Joinery Estimating</h3>
+        <p>Drawing and specification review, quantity takeoff, pricing calculations, estimate preparation and quotation records for bespoke windows and doors.</p>
+        <div class="tags"><span class="tag">QTO</span><span class="tag">Pricing</span><span class="tag">Quotations</span></div>
+      </article>
+
+      <article class="sample-card proof-card" data-category="steel">
+        <div class="sample-num">05</div>
+        <h3>Steel Quantity Takeoff</h3>
+        <p>Steel estimating workflow covering drawing review, member quantities, material requirements and organized takeoff information.</p>
+        <div class="sample-meta">Portfolio sample · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="steel">
+        <div class="sample-num">06</div>
+        <h3>Steel / Rebar Cutting Scheme</h3>
+        <p>Cutting-plan presentation showing commercial stock lengths, required pieces, cutting arrangements and material utilization.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="steel">
+        <div class="sample-num">07</div>
+        <h3>Material Schedule / MTO</h3>
+        <p>Structured material requirements supporting procurement, fabrication planning and construction execution.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="technical">
+        <div class="sample-num">08</div>
+        <h3>RFI / RFA</h3>
+        <p>Technical coordination sample showing an issue or submission, relevant drawing reference, query, proposed resolution and response/status.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="technical">
+        <div class="sample-num">09</div>
+        <h3>Method Statement / ITP</h3>
+        <p>Construction methodology and inspection documentation demonstrating work sequence, inspection points and acceptance requirements.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="technical">
+        <div class="sample-num">10</div>
+        <h3>NCR / Technical Documentation</h3>
+        <p>Quality and technical documentation showing issue identification, corrective action, references and project closeout records.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="controls">
+        <div class="sample-num">11</div>
+        <h3>Progress Report</h3>
+        <p>Project reporting covering completed work, progress information, manpower, equipment, materials, issues and lookahead where applicable.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="controls">
+        <div class="sample-num">12</div>
+        <h3>Supplier / Tender Comparison</h3>
+        <p>Commercial comparison format for organizing supplier or subcontractor quotations, scope differences and pricing information.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="controls">
+        <div class="sample-num">13</div>
+        <h3>Progress Billing / Cost Tracking</h3>
+        <p>Project control documentation demonstrating quantity verification, completed work, billing support and cost monitoring.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
+      <article class="sample-card proof-card" data-category="controls">
+        <div class="sample-num">14</div>
+        <h3>Contract / Award Documentation</h3>
+        <p>Sanitized commercial documentation showing scope, package, duration, inclusions/exclusions and relevant award information where appropriate.</p>
+        <div class="sample-meta">PDF · Add when approved</div>
+        <a class="sample-link proof-link-disabled" href="#" aria-disabled="true">PDF Not Uploaded Yet</a>
+      </article>
+
     </div>
 
-    <div class="section-head" style="margin-top:64px">
+  </div>
+
+</section>
+
+<!-- =========================
+     TECHNICAL TOOLS
+========================= -->
+
+<section class="tools" id="tools">
+
+  <div class="container">
+
+    <div class="section-head">
       <div>
-        <div class="eyebrow">06 — Document Library</div>
-        <h2>Sample documents.</h2>
+        <div class="eyebrow">06 — Technical Tools</div>
+        <h2>Turning construction workflows into useful tools.</h2>
       </div>
       <p class="section-intro">
-        Additional sanitized documents can be added here as they are prepared and approved for public portfolio use.
+        Practical tools built around estimating, quantity takeoff and material optimization workflows.
       </p>
     </div>
 
-    <div class="sample-grid">
-      <article class="sample-card"><div class="sample-num">A</div><h3>Steel / Rebar Cutting Scheme</h3><p>Planned sample: stock lengths, required pieces, cutting arrangement and wastage presentation.</p><div class="sample-meta">Coming soon</div></article>
-      <article class="sample-card"><div class="sample-num">B</div><h3>Cost Estimate / Tender Summary</h3><p>Planned sample: estimate summary, work packages, pricing structure and commercial assumptions with confidential information removed.</p><div class="sample-meta">Coming soon</div></article>
-      <article class="sample-card"><div class="sample-num">C</div><h3>RFI / RFA</h3><p>Planned sample showing the issue, drawing reference, query, proposed resolution and response/status.</p><div class="sample-meta">Coming soon</div></article>
-      <article class="sample-card"><div class="sample-num">D</div><h3>Progress Report</h3><p>Planned sample covering work completed, planned vs actual progress, manpower, equipment, materials, issues and lookahead.</p><div class="sample-meta">Coming soon</div></article>
-      <article class="sample-card"><div class="sample-num">E</div><h3>Method Statement / ITP</h3><p>Planned sample demonstrating construction methodology, inspection points, acceptance criteria and documentation.</p><div class="sample-meta">Coming soon</div></article>
-      <article class="sample-card"><div class="sample-num">F</div><h3>Contract / Award Documentation</h3><p>Planned sanitized sample showing scope, package, duration, inclusions/exclusions and commercial conditions where appropriate.</p><div class="sample-meta">Coming soon</div></article>
+    <div class="tools-grid">
+
+      <article class="tool-card">
+        <div class="tool-num">01 — MATERIAL OPTIMIZATION</div>
+        <h3>Rebar Cutting Optimizer</h3>
+        <p>Optimize required rebar cut lengths against commercial stock lengths and present cutting patterns, utilization and waste.</p>
+        <span class="tool-status">Interactive tool · In development</span>
+      </article>
+
+      <article class="tool-card">
+        <div class="tool-num">02 — MATERIAL OPTIMIZATION</div>
+        <h3>Steel Cutting Optimizer</h3>
+        <p>Linear cutting workflow for steel stock lengths, required member cuts, cutting patterns and material waste analysis.</p>
+        <span class="tool-status">Interactive tool · In development</span>
+      </article>
+
     </div>
 
   </div>
@@ -1816,7 +1932,7 @@ footer{
     <div class="section-head">
 
       <div>
-        <div class="eyebrow">09 — Reviews</div>
+        <div class="eyebrow">08 — Reviews</div>
         <h2>What people say.</h2>
       </div>
 
@@ -1927,7 +2043,7 @@ footer{
     <div class="section-head">
 
       <div>
-        <div class="eyebrow">08 — Experience</div>
+        <div class="eyebrow">09 — Experience</div>
         <h2>Career timeline.</h2>
       </div>
 
@@ -2484,6 +2600,45 @@ function changeLightboxSlide(direction){
 
   document.getElementById('lightbox-img').src =
     currentGallery[currentGalleryIndex];
+
+}
+
+
+
+/* =========================================================
+   PROOF OF WORK FILTER
+========================================================= */
+
+function filterProof(category,button){
+
+  const cards =
+    document.querySelectorAll('.proof-card');
+
+  const buttons =
+    document.querySelectorAll('.proof-filter');
+
+  buttons.forEach(item => {
+    item.classList.remove('active');
+    item.setAttribute('aria-selected','false');
+  });
+
+  if(button){
+    button.classList.add('active');
+    button.setAttribute('aria-selected','true');
+  }
+
+  cards.forEach(card => {
+
+    const cardCategory =
+      card.getAttribute('data-category');
+
+    const show =
+      category === 'all' ||
+      cardCategory === category;
+
+    card.hidden = !show;
+
+  });
 
 }
 
